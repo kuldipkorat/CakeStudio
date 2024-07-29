@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cake Studio Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 1200px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-indigo-600 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-bold">Cake Studio</h1>
+            <nav>
+                <a href="register.html" class="text-white hover:text-indigo-200 px-3">Register</a>
+                <a href="login.html" class="text-white hover:text-indigo-200 px-3">Login</a>
+                <a href="../src/controller/logout.php" class="text-white hover:text-indigo-200 px-3">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-6">
+        <h2 class="text-2xl font-bold mb-4">Welcome to Cake Studio Dashboard</h2>
+        <p class="text-lg mb-4">You are now logged in. Explore the features and manage your account.</p>
+        <!-- Additional content and features can be added here -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center p-4 mt-6">
+        <p>&copy; 2024 Cake Studio. All rights reserved.</p>
+    </footer>
+</body>
+</html>
