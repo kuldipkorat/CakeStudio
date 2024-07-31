@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,9 +20,13 @@
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold">Cake Studio</h1>
             <nav>
-                <a href="register.html" class="text-white hover:text-indigo-200 px-3">Register</a>
-                <a href="login.html" class="text-white hover:text-indigo-200 px-3">Login</a>
-                <a href="../src/controller/logout.php" class="text-white hover:text-indigo-200 px-3">Logout</a>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <!-- User is logged in -->
+                    <a href="../src/controller/logout.php" class="text-white hover:text-indigo-200 px-3">Logout</a>
+                <?php else: ?>
+                    <!-- User is not logged in -->
+                    <a href="login.php" class="text-white hover:text-indigo-200 px-3">Login</a>
+                <?php endif; ?>
             </nav>
         </div>
     </header>

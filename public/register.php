@@ -2,9 +2,9 @@
 session_start();
 
 // Check if the user is logged in
-if (!isset($_SESSION['user_id'])) {
+if (isset($_SESSION['user_id'])) {
     // If not logged in, redirect to the login page
-    header('Location: ../../public/login.html');
+    header('Location: ../public/dashboard.php');
     exit();
 }
 ?>
@@ -22,6 +22,15 @@ if (!isset($_SESSION['user_id'])) {
 <body class="bg-gray-100">
     <div class="container mx-auto max-w-md mt-10 p-5 bg-white rounded shadow-md">
         <h2 class="text-2xl font-bold mb-5 text-center">Register</h2>
+                <!-- Display Error Message -->
+                <?php if (isset($_SESSION['error'])): ?>
+            <div class="mb-4 text-red-500 text-center">
+                <?php
+                    echo $_SESSION['error'];
+                    unset($_SESSION['error']); // Clear the error after displaying it
+                ?>
+            </div>
+        <?php endif; ?>
         <form id="registrationForm" action="../src/controller/register.php" method="POST">
             <div class="mb-4">
                 <label for="name" class="block text-gray-700">Name</label>
@@ -50,7 +59,7 @@ if (!isset($_SESSION['user_id'])) {
             <button type="submit"
                 class="w-full bg-indigo-500 text-white py-2 rounded hover:bg-indigo-600">Register</button>
         </form>
-        <p class="text-center mt-4">Already have an account? <a href="login.html"
+        <p class="text-center mt-4">Already have an account? <a href="login.php"
                 class="text-indigo-500 hover:underline">Login here</a></p>
     </div>
     <script src="../public//js/validate.js"></script>

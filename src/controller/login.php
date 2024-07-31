@@ -4,7 +4,7 @@ include '../config/db.php';
 
 if (isset($_SESSION['user_id'])) {
     // If the user is already logged in, redirect to the dashboard
-    header('Location: ../dashboard.php');
+    header('Location: ../../public/dashboard.php');
     exit();
 }
 
@@ -13,8 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
 
     if (empty($email) || empty($password)) {
-        echo 'Please fill out all fields.';
-    } else {
+        $_SESSION['error'] = 'Please fill out all fields.';
+        header('Location: ../../public/login.php');
+        exit();
+    } 
         $sql = "SELECT id, password FROM users WHERE email = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $email);
@@ -31,17 +33,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['email'] = $email;
                 
                 // Redirect to the dashboard
-                header('Location: ../dashboard.php');
+                header('Location: ../../public/dashboard.php');
                 exit();
             } else {
-                echo 'Invalid email or password.';
+                $_SESSION['error'] = 'Invalid email or password.';
             }
         } else {
-            echo 'No user found with this email.';
+            $_SESSION['error'] = 'No user found with this email.';
         }
 
         $stmt->close();
-    }
-    $conn->close();
+        $conn->close();
+
+    // Redirect back to the login page with error
+    header('Location: ../../public/login.php');
+    exit();
 }
 ?>
