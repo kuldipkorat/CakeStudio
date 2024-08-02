@@ -19,12 +19,12 @@ session_start();
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="">
     <!-- Header -->
     <header class="bg-indigo-600 text-white p-4 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-3xl font-bold curser-pointer">
-            <a href="dashboard.php">Cake Studio</a>    
+            <h1 class="text-3xl font-bold cursor-pointer">
+                <a href="dashboard.php">Cake Studio</a>
             </h1>
             <nav>
                 <?php if (isset($_SESSION['user_id'])): ?>
@@ -77,7 +77,7 @@ session_start();
             if (product) {
                 document.getElementById('productDetail').innerHTML = `
                     <div class="md:w-1/2 p-4">
-                        <img src="${product.image}" alt="${product.name}" class="w-full rounded mb-4">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-auto max-w-md mx-auto rounded mb-4">
                     </div>
                     <div class="md:w-1/2 p-4">
                         <h2 class="text-3xl font-bold mb-4">${product.name}</h2>

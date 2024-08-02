@@ -21,7 +21,7 @@ if (isset($_SESSION['user_id'])) {
     <title>Cake Studio Login</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100">
+<body class=" ">
     <div class="container mx-auto max-w-md mt-10 p-5 bg-white rounded shadow-md">
         <h2 class="text-2xl font-bold mb-5 text-center">Login</h2>
 

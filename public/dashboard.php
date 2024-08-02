@@ -38,7 +38,7 @@ session_start();
     </style>
 </head>
 
-<body class="bg-gray-100">
+<body class=" ">
     <!-- Header -->
     <header class="bg-indigo-600 text-white p-4 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
