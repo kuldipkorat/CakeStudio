@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,13 +9,37 @@
     <title>Product Detail - Cake Studio</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        .container {
-            max-width: 1200px;
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content {
+            flex: 1;
         }
     </style>
 </head>
 <body class="bg-gray-100">
-    <div class="container mx-auto my-10 p-6 bg-white rounded shadow-lg">
+    <!-- Header -->
+    <header class="bg-indigo-600 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-bold curser-pointer">
+            <a href="dashboard.php">Cake Studio</a>    
+            </h1>
+            <nav>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <!-- User is logged in -->
+                    <a href="../src/controller/logout.php" class="text-white hover:text-indigo-200 px-3">Logout</a>
+                <?php else: ?>
+                    <!-- User is not logged in -->
+                    <a href="login.php" class="text-white hover:text-indigo-200 px-3">Login</a>
+                <?php endif; ?>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto my-10 p-6 content">
         <div id="productDetail" class="flex flex-col md:flex-row">
             <!-- Product Details will be inserted here by JavaScript -->
         </div>
@@ -20,6 +47,17 @@
             <a href="dashboard.php" class="text-indigo-500 hover:underline">Back to Products</a>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center p-4">
+        <p>&copy; 2024 Cake Studio. All rights reserved.</p>
+        <div class="mt-4">
+            <p>Contact Us: 123-456-7890</p>
+            <p>Visit Us: 123 Cake Street, Bakersville</p>
+            <p>Email: info@cakestudio.com</p>
+        </div>
+        <p class="mt-4 text-gray-400 text-sm">About Cake Studio: We specialize in 100% vegetarian, eggless cakes made fresh with the finest ingredients. Our wide variety of cakes ensures that there's something for everyone.</p>
+    </footer>
 
     <!-- Include product data and script for displaying product details -->
     <script src="../public/js/product.js"></script>
