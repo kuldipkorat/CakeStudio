@@ -9,6 +9,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cake Studio Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         .container {
             max-width: 1200px;
@@ -44,7 +45,10 @@ session_start();
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold">Cake Studio</h1>
             <nav class="flex items-center">
-            <a href="cart.php" class="text-white hover:text-indigo-200 px-3">Cart</a>
+            <a href="cart.php" class="relative text-white hover:text-indigo-200 px-3">
+                <i class="fa fa-shopping-cart text-2xl"></i>
+                <span id="cartCount" class="absolute -top-1 -right-2 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
+            </a>
 
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <a href="../src/controller/logout.php" class="text-white hover:text-indigo-200 px-3">Logout</a>
@@ -109,6 +113,7 @@ session_start();
 
     <!-- Include product data and script to generate product cards -->
     <script src="../public/js/product.js"></script>
+    <script src="../public/js/cart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const productCards = document.getElementById('productCards');
