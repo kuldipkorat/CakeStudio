@@ -19,14 +19,16 @@ session_start();
         }
     </style>
 </head>
-<body class="">
+<body class="bg-gray-100">
     <!-- Header -->
     <header class="bg-indigo-600 text-white p-4 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold cursor-pointer">
                 <a href="dashboard.php">Cake Studio</a>
             </h1>
-            <nav>
+            <nav class="flex items-center">
+            <a href="cart.php" class="text-white hover:text-indigo-200 px-3">Cart</a>
+
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <!-- User is logged in -->
                     <a href="../src/controller/logout.php" class="text-white hover:text-indigo-200 px-3">Logout</a>
@@ -83,7 +85,7 @@ session_start();
                         <h2 class="text-3xl font-bold mb-4">${product.name}</h2>
                         <p class="text-gray-700 mb-4">${product.description}</p>
                         <p class="text-indigo-500 text-2xl font-bold mb-6">$${product.price.toFixed(2)}</p>
-                        <button class="bg-indigo-500 text-white py-2 px-4 rounded">Add to Cart</button>
+                        <button class="bg-indigo-500 text-white py-2 px-4 rounded" onclick="addToCart(${product.id})">Add to Cart</button>
                     </div>
                 `;
             } else {
@@ -92,6 +94,22 @@ session_start();
                 `;
             }
         });
+
+        function addToCart(productId) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const product = products.find(p => p.id == productId);
+            const existingProduct = cart.find(p => p.id == productId);
+
+            if (existingProduct) {
+                existingProduct.quantity += 1;
+            } else {
+                product.quantity = 1;
+                cart.push(product);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert('Product added to cart');
+        }
     </script>
 </body>
 </html>

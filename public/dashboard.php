@@ -43,7 +43,9 @@ session_start();
     <header class="bg-indigo-600 text-white p-4 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold">Cake Studio</h1>
-            <nav>
+            <nav class="flex items-center">
+            <a href="cart.php" class="text-white hover:text-indigo-200 px-3">Cart</a>
+
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <a href="../src/controller/logout.php" class="text-white hover:text-indigo-200 px-3">Logout</a>
                 <?php else: ?>

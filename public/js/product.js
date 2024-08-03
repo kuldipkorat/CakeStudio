@@ -14,5 +14,19 @@ const products = [
         price: 18.00,
         image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_VNFpsdxibrDpXFv8fWP_KI4wVoD3ig33PQ&s'
     },
+    {
+        id: 3,
+        name: 'Vanilla Cake',
+        description: 'Classic vanilla cake with buttercream frosting',
+        price: 18.00,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_VNFpsdxibrDpXFv8fWP_KI4wVoD3ig33PQ&s'
+    },
+    {
+        id: 4,
+        name: 'Vanilla Cake',
+        description: 'Classic vanilla cake with buttercream frosting',
+        price: 18.00,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_VNFpsdxibrDpXFv8fWP_KI4wVoD3ig33PQ&s'
+    },
     // Add more products as needed
 ];
