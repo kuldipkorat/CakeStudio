@@ -8,6 +8,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Detail - Cake Studio</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
             display: flex;
@@ -19,7 +20,7 @@ session_start();
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="">
     <!-- Header -->
     <header class="bg-indigo-600 text-white p-4 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
@@ -27,7 +28,10 @@ session_start();
                 <a href="dashboard.php">Cake Studio</a>
             </h1>
             <nav class="flex items-center">
-            <a href="cart.php" class="text-white hover:text-indigo-200 px-3">Cart</a>
+            <a href="cart.php" class="relative text-white hover:text-indigo-200 px-3">
+                <i class="fa fa-shopping-cart text-2xl"></i>
+                <span id="cartCount" class="absolute -top-1 -right-2 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
+            </a>
 
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <!-- User is logged in -->
@@ -63,6 +67,7 @@ session_start();
 
     <!-- Include product data and script for displaying product details -->
     <script src="../public/js/product.js"></script>
+    <script src="../public/js/cart.js"></script>
     <script>
         // Function to get URL parameters
         function getUrlParameter(name) {

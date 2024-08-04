@@ -92,11 +92,25 @@ session_start();
         </div>
     </section>
 
-    <!-- Product Showcase -->
+    <!-- Product Showcase Sections -->
     <section class="container mx-auto my-10 p-6" id="productSection">
-        <h2 class="text-2xl font-bold text-center mb-6">Our Products</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="productCards">
-            <!-- Product cards will be inserted here by JavaScript -->
+        <h2 class="text-2xl font-bold text-center mb-6">Our Cake Products</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="cakeCards">
+            <!-- Cake product cards will be inserted here by JavaScript -->
+        </div>
+    </section>
+
+    <section class="container mx-auto my-10 p-6" id="brownieSection">
+        <h2 class="text-2xl font-bold text-center mb-6">Our Brownie Products</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="brownieCards">
+            <!-- Brownie product cards will be inserted here by JavaScript -->
+        </div>
+    </section>
+
+    <section class="container mx-auto my-10 p-6" id="pastrySection">
+        <h2 class="text-2xl font-bold text-center mb-6">Our Pastry Products</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="pastryCards">
+            <!-- Pastry product cards will be inserted here by JavaScript -->
         </div>
     </section>
 
@@ -116,7 +130,9 @@ session_start();
     <script src="../public/js/cart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const productCards = document.getElementById('productCards');
+            const cakeCards = document.getElementById('cakeCards');
+            const brownieCards = document.getElementById('brownieCards');
+            const pastryCards = document.getElementById('pastryCards');
 
             products.forEach(product => {
                 const productCard = document.createElement('div');
@@ -128,7 +144,14 @@ session_start();
                     <p class="text-indigo-500 font-bold mb-4">$${product.price.toFixed(2)}</p>
                     <a href="productDetail.php?id=${product.id}" class="bg-indigo-500 text-white py-2 px-4 rounded block text-center">Buy Now</a>
                 `;
-                productCards.appendChild(productCard);
+
+                if (product.category === 'cake') {
+                    cakeCards.appendChild(productCard);
+                } else if (product.category === 'brownie') {
+                    brownieCards.appendChild(productCard);
+                } else if (product.category === 'pastry') {
+                    pastryCards.appendChild(productCard);
+                }
             });
         });
 
