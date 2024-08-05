@@ -36,20 +36,37 @@ session_start();
             transform: scale(1.05);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
+
+        .dropdown-menu {
+            z-index: 20;
+        }
+
+        .hero-content {
+            z-index: 10;
+        }
     </style>
 </head>
 
 <body class=" ">
     <!-- Header -->
-    <header class="bg-indigo-600 text-white p-4 shadow-md">
+    <header class="bg-indigo-600 text-white p-4 shadow-md z-20 relative">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold">Cake Studio</h1>
             <nav class="flex items-center">
-            <a href="cart.php" class="relative text-white hover:text-indigo-200 px-3">
-                <i class="fa fa-shopping-cart text-2xl"></i>
-                <span id="cartCount" class="absolute -top-1 -right-2 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
-            </a>
-
+                <a href="cart.php" class="relative text-white hover:text-indigo-200 px-3">
+                    <i class="fa fa-shopping-cart text-2xl"></i>
+                    <span id="cartCount" class="absolute -top-1 -right-2 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
+                </a>
+                <div class="relative">
+                    <button class="relative z-10 block bg-indigo-500 text-white focus:outline-none px-3 py-2 rounded">
+                        Categories <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-menu absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-2 hidden">
+                        <a href="cakes.php" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Cakes</a>
+                        <a href="brownies.php" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Brownies</a>
+                        <a href="pastries.php" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Pastries</a>
+                    </div>
+                </div>
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <a href="../src/controller/logout.php" class="text-white hover:text-indigo-200 px-3">Logout</a>
                 <?php else: ?>
@@ -60,7 +77,7 @@ session_start();
     </header>
 
     <!-- Hero Section -->
-    <section class="hero relative flex items-center justify-center text-center py-20">
+    <section class="hero relative flex items-center justify-center text-center py-20 z-10">
         <div class="absolute inset-0 bg-opacity-50"></div>
         <div class="hero-content relative z-10 p-8">
             <h2 class="text-4xl font-bold mb-4">Welcome to Cake Studio</h2>
@@ -129,6 +146,21 @@ session_start();
     <script src="../public/js/product.js"></script>
     <script src="../public/js/cart.js"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dropdownButton = document.querySelector('button.relative.z-10');
+            const dropdownMenu = dropdownButton.nextElementSibling;
+
+            dropdownButton.addEventListener('click', () => {
+                dropdownMenu.classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!dropdownButton.contains(e.target)) {
+                    dropdownMenu.classList.add('hidden');
+                }
+            });
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
             const cakeCards = document.getElementById('cakeCards');
             const brownieCards = document.getElementById('brownieCards');
