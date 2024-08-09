@@ -68,13 +68,22 @@ session_start();
                 <a href="dashboard.php" class="text-indigo-500 hover:underline">Back to Products</a>
             </div>
         </div>
+            <!-- <div class="lg:w-1/3 w-full cart-summary ml-0 lg:ml-6 mt-6 lg:mt-0 hidden" id="cartSummary">
+                <h2 class="text-2xl font-bold mb-4">Cart Summary</h2>
+                <p class="text-xl">Product Count: <span id="productCount">0</span></p>
+                <p class="text-xl">Total Quantity: <span id="totalQuantity">0</span></p>
+                <p class="text-xl">Discount: <span id="discount">0</span>%</p>
+                <p class="text-xl font-bold mt-4">Total Amount: $<span id="totalAmount">0.00</span></p>
+            </div> -->
         <div class="lg:w-1/3 w-full cart-summary ml-0 lg:ml-6 mt-6 lg:mt-0 hidden" id="cartSummary">
-            <h2 class="text-2xl font-bold mb-4">Cart Summary</h2>
-            <p class="text-xl">Product Count: <span id="productCount">0</span></p>
-            <p class="text-xl">Total Quantity: <span id="totalQuantity">0</span></p>
-            <p class="text-xl">Discount: <span id="discount">0</span>%</p>
-            <p class="text-xl font-bold mt-4">Total Amount: $<span id="totalAmount">0.00</span></p>
-        </div>
+    <h2 class="text-2xl font-bold mb-4">Cart Summary</h2>
+    <p class="text-xl">Product Count: <span id="productCount">0</span></p>
+    <p class="text-xl">Total Quantity: <span id="totalQuantity">0</span></p>
+    <p class="text-xl">Discount: <span id="discount">0</span>%</p>
+    <p class="text-xl font-bold mt-4">Total Amount: $<span id="totalAmount">0.00</span></p>
+    <a href="checkout.php" class="bg-indigo-500 text-white py-2 px-4 rounded block text-center mt-6">Buy Now</a>
+</div>
+
     </div>
 
     <!-- Footer -->
