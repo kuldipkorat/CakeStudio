@@ -1,51 +1,76 @@
 <?php
-require_once '../config/db.php';
-// require_once '../controller/CartController.php';
+require_once __DIR__ . '/../config/db.php';
 
 class OrderController {
     private $conn;
-    private $cartController;
 
     public function __construct() {
-        $database = new Database();
-        $this->conn = $database->getConnection();
-        $this->cartController = new CartController();
+        global $conn;
+        $this->conn = $conn;
     }
 
     public function placeOrder($user_id, $total_amount) {
-        try {
-            $this->conn->beginTransaction();
+        $stmt = $this->conn->prepare("INSERT INTO orders (user_id, total_amount, status) VALUES (?, ?, 'Pending')");
+        $stmt->bind_param("id", $user_id, $total_amount);
 
-            // Insert order
-            $query = "INSERT INTO orders (user_id, order_date, total_amount) VALUES (:user_id, NOW(), :total_amount)";
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(':user_id', $user_id);
-            $stmt->bindParam(':total_amount', $total_amount);
-            $stmt->execute();
+        if ($stmt->execute()) {
+            $order_id = $stmt->insert_id;
 
-            $order_id = $this->conn->lastInsertId();
-
-            // Insert order items
-            $cart_items = $this->cartController->getCartByUserId($user_id);
-            foreach ($cart_items as $item) {
-                $query = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (:order_id, :product_id, :quantity, :price)";
-                $stmt = $this->conn->prepare($query);
-                $stmt->bindParam(':order_id', $order_id);
-                $stmt->bindParam(':product_id', $item['product_id']);
-                $stmt->bindParam(':quantity', $item['quantity']);
-                $stmt->bindParam(':price', $item['price']);
-                $stmt->execute();
+            // Move items from cart to order_items and then clear the cart
+            $cartItems = $this->getCartItems($user_id);
+            foreach ($cartItems as $item) {
+                $this->addOrderItem($order_id, $item['product_id'], $item['quantity'], $item['price']);
             }
 
-            // Clear cart
-            $this->cartController->clearCart($user_id);
-
-            $this->conn->commit();
+            // Clear the user's cart
+            $stmt = $this->conn->prepare("DELETE FROM cart WHERE user_id = ?");
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
 
             return $order_id;
-        } catch (Exception $e) {
-            $this->conn->rollBack();
-            throw $e;
+        } else {
+            die("Order placement failed: " . $stmt->error);
         }
     }
+
+    private function getCartItems($user_id) {
+        $stmt = $this->conn->prepare("SELECT * FROM cart WHERE user_id = ?");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $items = [];
+        while ($row = $result->fetch_assoc()) {
+            $items[] = $row;
+        }
+        return $items;
+    }
+
+    private function addOrderItem($order_id, $product_id, $quantity, $price) {
+        $stmt = $this->conn->prepare("INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("iiid", $order_id, $product_id, $quantity, $price);
+        $stmt->execute();
+    }
+
+    public function getOrderSummary($order_id) {
+        $stmt = $this->conn->prepare("SELECT * FROM orders WHERE id = ?");
+        $stmt->bind_param("i", $order_id);
+        $stmt->execute();
+        $order = $stmt->get_result()->fetch_assoc();
+
+        $stmt = $this->conn->prepare("SELECT oi.quantity, oi.price, p.name FROM order_items oi JOIN products p ON oi.product_id = p.id WHERE oi.order_id = ?");
+        $stmt->bind_param("i", $order_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $items = [];
+        while ($row = $result->fetch_assoc()) {
+            $items[] = $row;
+        }
+
+        return [
+            'total_amount' => $order['total_amount'],
+            'items' => $items
+        ];
+    }
 }
+?>
