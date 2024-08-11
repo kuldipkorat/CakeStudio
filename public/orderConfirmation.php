@@ -53,7 +53,7 @@ $order = $orderController->getOrderSummary($order_id);
             <p class="mt-4 font-bold">Total Amount: $<?php echo number_format($order['total_amount'], 2); ?></p>
         </div>
         <div class="mt-8 text-center">
-            <a href="index.php" class="bg-indigo-500 text-white py-2 px-4 rounded">Continue Shopping</a>
+            <a href="dashboard.php" class="bg-indigo-500 text-white py-2 px-4 rounded">Continue Shopping</a>
         </div>
     </div>
 </body>
