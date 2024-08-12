@@ -28,10 +28,12 @@ session_start();
                 <a href="dashboard.php">Cake Studio</a>
             </h1>
             <nav class="flex items-center">
-            <a href="cart.php" class="relative text-white hover:text-indigo-200 px-3">
-                <i class="fa fa-shopping-cart text-2xl"></i>
-                <span id="cartCount" class="absolute -top-1 -right-2 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
-            </a>
+                <a href="cart.php" class="relative text-white hover:text-indigo-200 px-3">
+                    <i class="fa fa-shopping-cart text-2xl"></i>
+                    <span id="cartCount" class="absolute -top-1 -right-2 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                        <?php echo isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0; ?>
+                    </span>
+                </a>
 
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <!-- User is logged in -->
@@ -101,19 +103,35 @@ session_start();
         });
 
         function addToCart(productId) {
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const product = products.find(p => p.id == productId);
-            const existingProduct = cart.find(p => p.id == productId);
-
-            if (existingProduct) {
-                existingProduct.quantity += 1;
-            } else {
-                product.quantity = 1;
-                cart.push(product);
-            }
-
-            localStorage.setItem('cart', JSON.stringify(cart));
-            alert('Product added to cart');
+            fetch('../src/controller/CartController.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    action: 'add',
+                    product_id: productId,
+                    quantity: 1
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('cartCount').textContent = data.cart_count;
+                    alert('Product added to cart');
+                } else {
+                    alert('Failed to add product to cart: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again later.');
+            });
         }
     </script>
 </body>

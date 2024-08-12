@@ -91,19 +91,19 @@ session_start();
         <h2 class="text-2xl font-bold text-center mb-6">Why Choose Us?</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div class="policy-card p-4 rounded-lg text-center shadow-lg">
-                <img src="path-to-your-icon1.png" alt="100% Veg" class="mx-auto mb-4" />
+                <img src="" alt="100% Veg" class="mx-auto mb-4" />
                 <p class="text-lg font-semibold">100% Veg</p>
             </div>
             <div class="policy-card p-4 rounded-lg text-center shadow-lg">
-                <img src="path-to-your-icon2.png" alt="Eggless Cakes" class="mx-auto mb-4" />
+                <img src="" alt="Eggless Cakes" class="mx-auto mb-4" />
                 <p class="text-lg font-semibold">Eggless Cakes</p>
             </div>
             <div class="policy-card p-4 rounded-lg text-center shadow-lg">
-                <img src="path-to-your-icon3.png" alt="Fresh Products" class="mx-auto mb-4" />
+                <img src="" alt="Fresh Products" class="mx-auto mb-4" />
                 <p class="text-lg font-semibold">Fresh Products</p>
             </div>
             <div class="policy-card p-4 rounded-lg text-center shadow-lg">
-                <img src="path-to-your-icon4.png" alt="Variety" class="mx-auto mb-4" />
+                <img src="" alt="Variety" class="mx-auto mb-4" />
                 <p class="text-lg font-semibold">Wide Variety</p>
             </div>
         </div>
