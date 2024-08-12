@@ -69,7 +69,6 @@ session_start();
 
     <!-- Include product data and script for displaying product details -->
     <script src="../public/js/product.js"></script>
-    <script src="../public/js/cart.js"></script>
     <script>
         // Function to get URL parameters
         function getUrlParameter(name) {
@@ -101,38 +100,6 @@ session_start();
                 `;
             }
         });
-
-        function addToCart(productId) {
-            fetch('../src/controller/CartController.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: new URLSearchParams({
-                    action: 'add',
-                    product_id: productId,
-                    quantity: 1
-                })
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) {
-                    document.getElementById('cartCount').textContent = data.cart_count;
-                    alert('Product added to cart');
-                } else {
-                    alert('Failed to add product to cart: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again later.');
-            });
-        }
     </script>
 </body>
 </html>
