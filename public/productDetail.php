@@ -1,6 +1,21 @@
 <?php
 session_start();
+require_once '../src/config/db.php'; // Adjust the path to your database connection file
+
+// Get the product ID from the URL
+$productId = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+// Fetch the product details from the database
+$product = null;
+if ($productId > 0) {
+    $stmt = $conn->prepare("SELECT id, name, description, price, image FROM products WHERE id = ?");
+    $stmt->bind_param("i", $productId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $product = $result->fetch_assoc();
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +35,7 @@ session_start();
         }
     </style>
 </head>
-<body class="">
+<body>
     <!-- Header -->
     <header class="bg-indigo-600 text-white p-4 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
@@ -48,9 +63,24 @@ session_start();
 
     <!-- Main Content -->
     <div class="container mx-auto my-10 p-6 content">
-        <div id="productDetail" class="flex flex-col md:flex-row">
-            <!-- Product Details will be inserted here by JavaScript -->
-        </div>
+        <?php if ($product): ?>
+            <div id="productDetail" class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 p-4">
+                    <img src="../uploads/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="w-full h-auto max-w-md mx-auto rounded mb-4">
+                </div>
+                <div class="md:w-1/2 p-4">
+                    <h2 class="text-3xl font-bold mb-4"><?php echo htmlspecialchars($product['name']); ?></h2>
+                    <p class="text-gray-700 mb-4"><?php echo htmlspecialchars($product['description']); ?></p>
+                    <p class="text-indigo-500 text-2xl font-bold mb-6">$<?php echo number_format($product['price'], 2); ?></p>
+                    <form action="../src/controller/cartController.php" method="POST">
+                        <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product['id']); ?>">
+                        <button type="submit" name="add_to_cart" class="bg-indigo-500 text-white py-2 px-4 rounded">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+        <?php else: ?>
+            <p class="text-red-500 text-lg">Product not found.</p>
+        <?php endif; ?>
         <div class="text-center mt-6">
             <a href="dashboard.php" class="text-indigo-500 hover:underline">Back to Products</a>
         </div>
@@ -66,40 +96,5 @@ session_start();
         </div>
         <p class="mt-4 text-gray-400 text-sm">About Cake Studio: We specialize in 100% vegetarian, eggless cakes made fresh with the finest ingredients. Our wide variety of cakes ensures that there's something for everyone.</p>
     </footer>
-
-    <!-- Include product data and script for displaying product details -->
-    <script src="../public/js/product.js"></script>
-    <script>
-        // Function to get URL parameters
-        function getUrlParameter(name) {
-            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-            var results = regex.exec(location.search);
-            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const productId = getUrlParameter('id');
-            const product = products.find(p => p.id == productId);
-
-            if (product) {
-                document.getElementById('productDetail').innerHTML = `
-                    <div class="md:w-1/2 p-4">
-                        <img src="${product.image}" alt="${product.name}" class="w-full h-auto max-w-md mx-auto rounded mb-4">
-                    </div>
-                    <div class="md:w-1/2 p-4">
-                        <h2 class="text-3xl font-bold mb-4">${product.name}</h2>
-                        <p class="text-gray-700 mb-4">${product.description}</p>
-                        <p class="text-indigo-500 text-2xl font-bold mb-6">$${product.price.toFixed(2)}</p>
-                        <button class="bg-indigo-500 text-white py-2 px-4 rounded" onclick="addToCart(${product.id})">Add to Cart</button>
-                    </div>
-                `;
-            } else {
-                document.getElementById('productDetail').innerHTML = `
-                    <p class="text-red-500 text-lg">Product not found.</p>
-                `;
-            }
-        });
-    </script>
 </body>
 </html>

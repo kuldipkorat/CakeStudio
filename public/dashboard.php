@@ -1,9 +1,21 @@
 <?php
 session_start();
+require_once '../src/config/db.php';
+
+// Fetch products from the database
+$query = "SELECT id, name, description, price, category, image FROM products";
+$result = $conn->query($query);
+$products = [];
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $products[] = $row;
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -112,22 +124,52 @@ session_start();
     <!-- Product Showcase Sections -->
     <section class="container mx-auto my-10 p-6" id="productSection">
         <h2 class="text-2xl font-bold text-center mb-6">Our Cake Products</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="cakeCards">
-            <!-- Cake product cards will be inserted here by JavaScript -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <?php foreach ($products as $product): ?>
+                <?php if ($product['category'] === 'cake'): ?>
+                    <div class="product-card bg-white rounded-lg shadow-lg p-4">
+                        <img src="../uploads/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4" />
+                        <h3 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($product['name']); ?></h3>
+                        <p class="text-gray-700 mb-2"><?php echo htmlspecialchars($product['description']); ?></p>
+                        <p class="text-indigo-500 font-bold mb-4">$<?php echo number_format($product['price'], 2); ?></p>
+                        <a href="productDetail.php?id=<?php echo $product['id']; ?>" class="bg-indigo-500 text-white py-2 px-4 rounded block text-center">Buy Now</a>
+                    </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
         </div>
     </section>
 
     <section class="container mx-auto my-10 p-6" id="brownieSection">
         <h2 class="text-2xl font-bold text-center mb-6">Our Brownie Products</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="brownieCards">
-            <!-- Brownie product cards will be inserted here by JavaScript -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <?php foreach ($products as $product): ?>
+                <?php if ($product['category'] === 'brownie'): ?>
+                    <div class="product-card bg-white rounded-lg shadow-lg p-4">
+                        <img src="../uploads/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4" />
+                        <h3 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($product['name']); ?></h3>
+                        <p class="text-gray-700 mb-2"><?php echo htmlspecialchars($product['description']); ?></p>
+                        <p class="text-indigo-500 font-bold mb-4">$<?php echo number_format($product['price'], 2); ?></p>
+                        <a href="productDetail.php?id=<?php echo $product['id']; ?>" class="bg-indigo-500 text-white py-2 px-4 rounded block text-center">Buy Now</a>
+                    </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
         </div>
     </section>
 
     <section class="container mx-auto my-10 p-6" id="pastrySection">
         <h2 class="text-2xl font-bold text-center mb-6">Our Pastry Products</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="pastryCards">
-            <!-- Pastry product cards will be inserted here by JavaScript -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <?php foreach ($products as $product): ?>
+                <?php if ($product['category'] === 'pastry'): ?>
+                    <div class="product-card bg-white rounded-lg shadow-lg p-4">
+                        <img src="../uploads/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4" />
+                        <h3 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($product['name']); ?></h3>
+                        <p class="text-gray-700 mb-2"><?php echo htmlspecialchars($product['description']); ?></p>
+                        <p class="text-indigo-500 font-bold mb-4">$<?php echo number_format($product['price'], 2); ?></p>
+                        <a href="productDetail.php?id=<?php echo $product['id']; ?>" class="bg-indigo-500 text-white py-2 px-4 rounded block text-center">Buy Now</a>
+                    </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
         </div>
     </section>
 
@@ -142,8 +184,6 @@ session_start();
         <p class="mt-4 text-gray-400 text-sm">About Cake Studio: We specialize in 100% vegetarian, eggless cakes made fresh with the finest ingredients. Our wide variety of cakes ensures that there's something for everyone.</p>
     </footer>
 
-    <!-- Include product data and script to generate product cards -->
-    <script src="../public/js/product.js"></script>
     <script src="../public/js/cart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -161,37 +201,10 @@ session_start();
             });
         });
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const cakeCards = document.getElementById('cakeCards');
-            const brownieCards = document.getElementById('brownieCards');
-            const pastryCards = document.getElementById('pastryCards');
-
-            products.forEach(product => {
-                const productCard = document.createElement('div');
-                productCard.classList.add('product-card', 'bg-white', 'rounded-lg', 'shadow-lg', 'p-4');
-                productCard.innerHTML = `
-                    <img src="${product.image}" alt="${product.name}" class="rounded mb-4" />
-                    <h3 class="text-xl font-semibold mb-2">${product.name}</h3>
-                    <p class="text-gray-700 mb-2">${product.description}</p>
-                    <p class="text-indigo-500 font-bold mb-4">$${product.price.toFixed(2)}</p>
-                    <a href="productDetail.php?id=${product.id}" class="bg-indigo-500 text-white py-2 px-4 rounded block text-center">Buy Now</a>
-                `;
-
-                if (product.category === 'cake') {
-                    cakeCards.appendChild(productCard);
-                } else if (product.category === 'brownie') {
-                    brownieCards.appendChild(productCard);
-                } else if (product.category === 'pastry') {
-                    pastryCards.appendChild(productCard);
-                }
-            });
-        });
-
         // Smooth scroll to products section
         document.getElementById('scrollToProducts').addEventListener('click', () => {
             document.querySelector('#productSection').scrollIntoView({ behavior: 'smooth' });
         });
     </script>
 </body>
-
 </html>

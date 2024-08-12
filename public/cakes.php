@@ -60,7 +60,7 @@ session_start();
 </head>
 </html>
 
-<script src="../public/js/product.js"></script>
+<script src="../public/js/ product.js.php"></script>
 <script src="../public/js/cart.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {

@@ -12,7 +12,7 @@ include 'header.php';
 
 <?php include 'footer.php'; ?>
 
-<script src="../public/js/product.js"></script>
+<script src="../public/js/ product.js.php"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const pastryCards = document.getElementById('pastryCards');
