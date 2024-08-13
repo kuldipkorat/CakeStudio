@@ -61,13 +61,15 @@ if ($result->num_rows > 0) {
 
 <body class=" ">
     <!-- Header -->
-    <header class="bg-indigo-600 text-white p-4 shadow-md z-20 relative">
+    <!-- <header class="bg-indigo-600 text-white p-4 shadow-md z-20 relative">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold">Cake Studio</h1>
             <nav class="flex items-center">
-                <a href="cart.php" class="relative text-white hover:text-indigo-200 px-3">
+            <a href="cart.php" class="relative text-white hover:text-indigo-200 px-3">
                     <i class="fa fa-shopping-cart text-2xl"></i>
-                    <span id="cartCount" class="absolute -top-1 -right-2 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
+                    <span id="cartCount" class="absolute -top-1 -right-2 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                        <?php echo isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0; ?>
+                    </span>
                 </a>
                 <div class="relative">
                     <button class="relative z-10 block bg-indigo-500 text-white focus:outline-none px-3 py-2 rounded">
@@ -86,8 +88,10 @@ if ($result->num_rows > 0) {
                 <?php endif; ?>
             </nav>
         </div>
-    </header>
-
+    </header> -->
+    <?php
+include '../partials/header.php'; 
+?>
     <!-- Hero Section -->
     <section class="hero relative flex items-center justify-center text-center py-20 z-10">
         <div class="absolute inset-0 bg-opacity-50"></div>
@@ -128,11 +132,13 @@ if ($result->num_rows > 0) {
             <?php foreach ($products as $product): ?>
                 <?php if ($product['category'] === 'cake'): ?>
                     <div class="product-card bg-white rounded-lg shadow-lg p-4">
+                        <a href="productDetail.php?id=<?php echo $product['id']; ?>">
                         <img src="../uploads/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4" />
                         <h3 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($product['name']); ?></h3>
                         <p class="text-gray-700 mb-2"><?php echo htmlspecialchars($product['description']); ?></p>
                         <p class="text-indigo-500 font-bold mb-4">$<?php echo number_format($product['price'], 2); ?></p>
                         <a href="productDetail.php?id=<?php echo $product['id']; ?>" class="bg-indigo-500 text-white py-2 px-4 rounded block text-center">Buy Now</a>
+                        </a>
                     </div>
                 <?php endif; ?>
             <?php endforeach; ?>
@@ -145,11 +151,13 @@ if ($result->num_rows > 0) {
             <?php foreach ($products as $product): ?>
                 <?php if ($product['category'] === 'brownie'): ?>
                     <div class="product-card bg-white rounded-lg shadow-lg p-4">
+                    <a href="productDetail.php?id=<?php echo $product['id']; ?>">
                         <img src="../uploads/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4" />
                         <h3 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($product['name']); ?></h3>
                         <p class="text-gray-700 mb-2"><?php echo htmlspecialchars($product['description']); ?></p>
                         <p class="text-indigo-500 font-bold mb-4">$<?php echo number_format($product['price'], 2); ?></p>
                         <a href="productDetail.php?id=<?php echo $product['id']; ?>" class="bg-indigo-500 text-white py-2 px-4 rounded block text-center">Buy Now</a>
+                </a>
                     </div>
                 <?php endif; ?>
             <?php endforeach; ?>
@@ -161,12 +169,14 @@ if ($result->num_rows > 0) {
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <?php foreach ($products as $product): ?>
                 <?php if ($product['category'] === 'pastry'): ?>
-                    <div class="product-card bg-white rounded-lg shadow-lg p-4">
+                   <div class="product-card bg-white rounded-lg shadow-lg p-4">
+                   <a href="productDetail.php?id=<?php echo $product['id']; ?>">
                         <img src="../uploads/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4" />
                         <h3 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($product['name']); ?></h3>
                         <p class="text-gray-700 mb-2"><?php echo htmlspecialchars($product['description']); ?></p>
                         <p class="text-indigo-500 font-bold mb-4">$<?php echo number_format($product['price'], 2); ?></p>
                         <a href="productDetail.php?id=<?php echo $product['id']; ?>" class="bg-indigo-500 text-white py-2 px-4 rounded block text-center">Buy Now</a>
+                        </a> 
                     </div>
                 <?php endif; ?>
             <?php endforeach; ?>
@@ -174,32 +184,24 @@ if ($result->num_rows > 0) {
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white text-center p-4 mt-6">
-        <p>&copy; 2024 Cake Studio. All rights reserved.</p>
-        <div class="mt-4">
-            <p>Contact Us: 123-456-7890</p>
-            <p>Visit Us: 123 Cake Street, Bakersville</p>
-            <p>Email: info@cakestudio.com</p>
-        </div>
-        <p class="mt-4 text-gray-400 text-sm">About Cake Studio: We specialize in 100% vegetarian, eggless cakes made fresh with the finest ingredients. Our wide variety of cakes ensures that there's something for everyone.</p>
-    </footer>
+    <?php include '../partials/footer.php'; ?>
 
     <script src="../public/js/cart.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const dropdownButton = document.querySelector('button.relative.z-10');
-            const dropdownMenu = dropdownButton.nextElementSibling;
+        // document.addEventListener('DOMContentLoaded', () => {
+        //     const dropdownButton = document.querySelector('button.relative.z-10');
+        //     const dropdownMenu = dropdownButton.nextElementSibling;
 
-            dropdownButton.addEventListener('click', () => {
-                dropdownMenu.classList.toggle('hidden');
-            });
+        //     dropdownButton.addEventListener('click', () => {
+        //         dropdownMenu.classList.toggle('hidden');
+        //     });
 
-            document.addEventListener('click', (e) => {
-                if (!dropdownButton.contains(e.target)) {
-                    dropdownMenu.classList.add('hidden');
-                }
-            });
-        });
+        //     document.addEventListener('click', (e) => {
+        //         if (!dropdownButton.contains(e.target)) {
+        //             dropdownMenu.classList.add('hidden');
+        //         }
+        //     });
+        // });
 
         // Smooth scroll to products section
         document.getElementById('scrollToProducts').addEventListener('click', () => {

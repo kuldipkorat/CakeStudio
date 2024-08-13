@@ -33,17 +33,12 @@ while ($row = $result->fetch_assoc()) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Your Cart - Cake Studio</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-  <header class="bg-indigo-600 text-white p-4 shadow-md">
-      <div class="container mx-auto flex justify-between items-center">
-          <h1 class="text-3xl font-bold">Cake Studio</h1>
-          <nav class="flex items-center">
-              <a href="dashboard.php" class="text-white hover:text-indigo-200 px-3">Dashboard</a>
-              <a href="../src/controller/logout.php" class="text-white hover:text-indigo-200 px-3">Logout</a>
-          </nav>
-      </div>
-  </header>
+<?php
+include '../partials/header.php'; 
+?>
 
   <div class="container mx-auto my-10 p-6">
       <h2 class="text-3xl font-bold mb-6">My Cart</h2>
@@ -101,9 +96,7 @@ while ($row = $result->fetch_assoc()) {
 <?php endif; ?>
   </div>
 
-  <footer class="bg-gray-800 text-white text-center p-4">
-      <p>&copy; <?php echo date('Y'); ?> Cake Studio. All rights reserved.</p>
-  </footer>
+  <?php include '../partials/footer.php'; ?>
 
   <script>
       function updateCart(productId, delta) {

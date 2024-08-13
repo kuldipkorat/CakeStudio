@@ -37,7 +37,10 @@ if ($productId > 0) {
 </head>
 <body>
     <!-- Header -->
-    <header class="bg-indigo-600 text-white p-4 shadow-md">
+    <?php
+include '../partials/header.php'; 
+?>
+    <!-- <header class="bg-indigo-600 text-white p-4 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold cursor-pointer">
                 <a href="dashboard.php">Cake Studio</a>
@@ -51,15 +54,13 @@ if ($productId > 0) {
                 </a>
 
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <!-- User is logged in -->
                     <a href="../src/controller/logout.php" class="text-white hover:text-indigo-200 px-3">Logout</a>
                 <?php else: ?>
-                    <!-- User is not logged in -->
                     <a href="login.php" class="text-white hover:text-indigo-200 px-3">Login</a>
                 <?php endif; ?>
             </nav>
         </div>
-    </header>
+    </header> -->
 
     <!-- Main Content -->
     <div class="container mx-auto my-10 p-6 content">
@@ -89,14 +90,6 @@ if ($productId > 0) {
     </div>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white text-center p-4">
-        <p>&copy; 2024 Cake Studio. All rights reserved.</p>
-        <div class="mt-4">
-            <p>Contact Us: 123-456-7890</p>
-            <p>Visit Us: 123 Cake Street, Bakersville</p>
-            <p>Email: info@cakestudio.com</p>
-        </div>
-        <p class="mt-4 text-gray-400 text-sm">About Cake Studio: We specialize in 100% vegetarian, eggless cakes made fresh with the finest ingredients. Our wide variety of cakes ensures that there's something for everyone.</p>
-    </footer>
+    <?php include '../partials/footer.php'; ?>
 </body>
 </html>
