@@ -1,52 +1,44 @@
 <?php
 session_start();
+require_once '../config/db.php';
 
-// Include your database connection
-include('../config/db.php');
+if (isset($_POST['product_id'])) {
+    $userId = $_SESSION['user_id'];
+    $productId = intval($_POST['product_id']);
+    $quantity = intval($_POST['quantity']) ?? 1;
 
-// Check if the user is logged in
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['success' => false, 'message' => 'User not logged in']);
-    exit;
-}
-
-// Get product ID from POST request
-$product_id = $_POST['product_id'];
-$quantity = 1; // Default quantity when adding to cart
-
-// Fetch product details from the database
-$sql = "SELECT * FROM products WHERE id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('i', $product_id);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0) {
-    $product = $result->fetch_assoc();
-    
-    // Initialize the cart if it doesn't exist
+    // Check if the cart exists in the session, if not create it as an empty array
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = [];
     }
 
-    // If the product is already in the cart, increase the quantity
-    if (isset($_SESSION['cart'][$product_id])) {
-        $_SESSION['cart'][$product_id]['quantity'] += $quantity;
+    // Check if the product is already in the cart
+    $stmt = $conn->prepare("SELECT id, quantity FROM cart WHERE user_id = ? AND product_id = ?");
+    $stmt->bind_param("ii", $userId, $productId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        // Update the quantity if the product is already in the cart
+        $row = $result->fetch_assoc();
+        $newQuantity = $row['quantity'] + $quantity;
+        $stmt = $conn->prepare("UPDATE cart SET quantity = ? WHERE id = ?");
+        $stmt->bind_param("ii", $newQuantity, $row['id']);
     } else {
-        // Otherwise, add the product to the cart
-        $_SESSION['cart'][$product_id] = [
-            'name' => $product['name'],
-            'price' => $product['price'],
-            'quantity' => $quantity,
-            'image' => $product['image']
-        ];
+        // Add the product to the cart if it's not already there
+        $stmt = $conn->prepare("INSERT INTO cart (user_id, product_id, quantity) VALUES (?, ?, ?)");
+        $stmt->bind_param("iii", $userId, $productId, $quantity);
     }
 
-    // Update the cart count in the session
-    $_SESSION['cart_count'] = array_sum(array_column($_SESSION['cart'], 'quantity'));
+    $stmt->execute();
 
-    echo json_encode(['success' => true, 'cartCount' => $_SESSION['cart_count']]);
-} else {
-    echo json_encode(['success' => false, 'message' => 'Product not found']);
+    // Calculate the cart count from the database or session
+    $cartResult = $conn->query("SELECT SUM(quantity) as total_quantity FROM cart WHERE user_id = $userId");
+    $cartRow = $cartResult->fetch_assoc();
+    $_SESSION['cart_count'] = $cartRow['total_quantity'] ?? 0;
+
+    // Redirect back to the product details page or wherever you want
+    header("Location: " . $_SERVER['HTTP_REFERER']);
+    exit;
 }
 ?>

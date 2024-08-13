@@ -1,28 +1,37 @@
 <?php
 session_start();
+require_once '../config/db.php';
 
-if (!isset($_SESSION['user_id']) || !isset($_SESSION['cart'])) {
-    echo json_encode(['success' => false, 'message' => 'Cart not found']);
-    exit;
-}
+if (isset($_POST['product_id']) && isset($_POST['delta'])) {
+    $userId = $_SESSION['user_id'];
+    $productId = intval($_POST['product_id']);
+    $delta = intval($_POST['delta']);
 
-$productId = $_POST['product_id'];
-$delta = (int)$_POST['delta'];
+    // Fetch the current quantity
+    $stmt = $conn->prepare("SELECT id, quantity FROM cart WHERE user_id = ? AND product_id = ?");
+    $stmt->bind_param("ii", $userId, $productId);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-// Check if the product is in the cart
-if (isset($_SESSION['cart'][$productId])) {
-    // Update quantity
-    $_SESSION['cart'][$productId]['quantity'] += $delta;
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $newQuantity = $row['quantity'] + $delta;
 
-    // Remove product from cart if quantity is 0 or less
-    if ($_SESSION['cart'][$productId]['quantity'] <= 0) {
-        unset($_SESSION['cart'][$productId]);
+        if ($newQuantity > 0) {
+            // Update the quantity
+            $stmt = $conn->prepare("UPDATE cart SET quantity = ? WHERE id = ?");
+            $stmt->bind_param("ii", $newQuantity, $row['id']);
+        } else {
+            // Remove the item if the quantity is zero or less
+            $stmt = $conn->prepare("DELETE FROM cart WHERE id = ?");
+            $stmt->bind_param("i", $row['id']);
+        }
+
+        $stmt->execute();
     }
 
-    // Update session cart count
-    $_SESSION['cart_count'] = array_sum(array_column($_SESSION['cart'], 'quantity'));
-
-    echo json_encode(['success' => true, 'cartCount' => $_SESSION['cart_count']]);
-} else {
-    echo json_encode(['success' => false, 'message' => 'Product not in cart']);
+    // Redirect back to the cart page or wherever you want
+    header("Location: " . $_SERVER['HTTP_REFERER']);
+    exit;
 }
+?>

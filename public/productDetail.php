@@ -72,10 +72,12 @@ if ($productId > 0) {
                     <h2 class="text-3xl font-bold mb-4"><?php echo htmlspecialchars($product['name']); ?></h2>
                     <p class="text-gray-700 mb-4"><?php echo htmlspecialchars($product['description']); ?></p>
                     <p class="text-indigo-500 text-2xl font-bold mb-6">$<?php echo number_format($product['price'], 2); ?></p>
-                    <form action="../src/controller/cartController.php" method="POST">
-                        <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product['id']); ?>">
-                        <button type="submit" name="add_to_cart" class="bg-indigo-500 text-white py-2 px-4 rounded">Add to Cart</button>
-                    </form>
+                    <form action="../src/controller/add_to_cart.php" method="POST">
+    <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product['id']); ?>">
+    <input type="hidden" name="quantity" value="1"> <!-- Default quantity -->
+    <button type="submit" class="bg-indigo-500 text-white py-2 px-4 rounded">Add to Cart</button>
+</form>
+
                 </div>
             </div>
         <?php else: ?>
