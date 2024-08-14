@@ -18,6 +18,7 @@ if ($productId > 0) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,16 +31,18 @@ if ($productId > 0) {
             flex-direction: column;
             min-height: 100vh;
         }
+
         .content {
             flex: 1;
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <?php
-include '../partials/header.php'; 
-?>
+    include '../partials/header.php';
+    ?>
     <!-- <header class="bg-indigo-600 text-white p-4 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold cursor-pointer">
@@ -74,10 +77,10 @@ include '../partials/header.php';
                     <p class="text-gray-700 mb-4"><?php echo htmlspecialchars($product['description']); ?></p>
                     <p class="text-indigo-500 text-2xl font-bold mb-6">$<?php echo number_format($product['price'], 2); ?></p>
                     <form action="../src/controller/add_to_cart.php" method="POST">
-    <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product['id']); ?>">
-    <input type="hidden" name="quantity" value="1"> <!-- Default quantity -->
-    <button type="submit" class="bg-indigo-500 text-white py-2 px-4 rounded">Add to Cart</button>
-</form>
+                        <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product['id']); ?>">
+                        <input type="hidden" name="quantity" value="1"> <!-- Default quantity -->
+                        <button type="submit" class="bg-indigo-500 text-white py-2 px-4 rounded">Add to Cart</button>
+                    </form>
 
                 </div>
             </div>
@@ -92,4 +95,5 @@ include '../partials/header.php';
     <!-- Footer -->
     <?php include '../partials/footer.php'; ?>
 </body>
+
 </html>

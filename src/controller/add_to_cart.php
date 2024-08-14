@@ -2,6 +2,13 @@
 session_start();
 require_once '../config/db.php';
 
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // If not logged in, redirect to the login page
+    header("Location: ../../public/login.php");
+    exit;
+}
+
 if (isset($_POST['product_id'])) {
     $userId = $_SESSION['user_id'];
     $productId = intval($_POST['product_id']);
