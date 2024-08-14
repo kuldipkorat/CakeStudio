@@ -30,6 +30,11 @@ if (isset($_POST['product_id']) && isset($_POST['delta'])) {
         $stmt->execute();
     }
 
+    // Recalculate the cart count based on the number of distinct products
+    $cartResult = $conn->query("SELECT COUNT(*) as unique_product_count FROM cart WHERE user_id = $userId");
+    $cartRow = $cartResult->fetch_assoc();
+    $_SESSION['cart_count'] = $cartRow['unique_product_count'] ?? 0;
+
     // Redirect back to the cart page or wherever you want
     header("Location: " . $_SERVER['HTTP_REFERER']);
     exit;
