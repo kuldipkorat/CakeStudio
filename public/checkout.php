@@ -21,28 +21,54 @@ while ($row = $result->fetch_assoc()) {
     $addresses[] = $row;
 }
 
+$errors = []; // Array to hold error messages
+
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['name'];
-    $mobile = $_POST['mobile'];
-    $house_no = $_POST['house_no'];
-    $address_line1 = $_POST['address_line1'];
-    $city = $_POST['city'];
-    $state = $_POST['state'];
-    $pin_code = $_POST['pin_code'];
+    $name = trim($_POST['name']);
+    $mobile = trim($_POST['mobile']);
+    $house_no = trim($_POST['house_no']);
+    $address_line1 = trim($_POST['address_line1']);
+    $city = trim($_POST['city']);
+    $state = trim($_POST['state']);
+    $pin_code = trim($_POST['pin_code']);
 
     // Validate the input data
-    if ($name && $mobile && $house_no && $address_line1 && $city && $state && $pin_code) {
-        // Insert the new address into the database
+    if (empty($name)) {
+        $errors['name'] = "Name is required.";
+    }
+    if (empty($mobile)) {
+        $errors['mobile'] = "Mobile number is required.";
+    } elseif (!preg_match('/^[0-9]{10}$/', $mobile)) {
+        $errors['mobile'] = "Mobile number must be 10 digits.";
+    }
+    if (empty($house_no)) {
+        $errors['house_no'] = "House number is required.";
+    }
+    if (empty($address_line1)) {
+        $errors['address_line1'] = "Address line 1 is required.";
+    }
+    if (empty($city)) {
+        $errors['city'] = "City is required.";
+    }
+    if (empty($state)) {
+        $errors['state'] = "State is required.";
+    }
+    if (empty($pin_code)) {
+        $errors['pin_code'] = "Pin code is required.";
+    } elseif (!preg_match('/^[0-9]{6}$/', $pin_code)) {
+        $errors['pin_code'] = "Pin code must be 6 digits.";
+    }
+
+    // If no errors, insert the new address into the database
+    if (empty($errors)) {
         $stmt = $conn->prepare("INSERT INTO addresses (user_id, name, mobile, house_no, address_line1, city, state, pin_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("isssssss", $userId, $name, $mobile, $house_no, $address_line1, $city, $state, $pin_code);
         $stmt->execute();
         
-        // Redirect to order confirmation page or process the order further
-        header("Location: order_confirmation.php"); // Redirect to an order confirmation page
+        // Redirect to order confirmation page
+        header("Location: order_confirmation.php");
         exit;
-    } else {
-        $error = "Please fill in all the required fields.";
     }
 }
 ?>
@@ -54,33 +80,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - Cake Studio</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <script>
-        function validateForm() {
-            const name = document.getElementById('name').value.trim();
-            const mobile = document.getElementById('mobile').value.trim();
-            const house_no = document.getElementById('house_no').value.trim();
-            const address_line1 = document.getElementById('address_line1').value.trim();
-            const city = document.getElementById('city').value.trim();
-            const state = document.getElementById('state').value.trim();
-            const pin_code = document.getElementById('pin_code').value.trim();
-            let valid = true;
-
-            // Simple validation
-            if (!name || !mobile || !house_no || !address_line1 || !city || !state || !pin_code) {
-                alert('Please fill in all the required fields.');
-                valid = false;
-            }
-
-            return valid;
-        }
-    </script>
 </head>
 <body>
     <?php include '../partials/header.php'; ?>
 
     <div class="container mx-auto my-10 p-6">
         <h2 class="text-3xl text-center underline font-bold mb-6">Checkout</h2>
+
+        <!-- Display error messages -->
+        <!-- <?php if (!empty($errors)): ?>
+            <div class="mb-6">
+                <?php foreach ($errors as $error): ?>
+                    <p class="text-red-500"><?php echo $error; ?></p>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?> -->
 
         <?php if (!empty($addresses)): ?>
             <h3 class="text-2xl font-bold mb-4">Select an Existing Address</h3>
@@ -103,41 +117,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <h3 class="text-2xl font-bold mb-4">Add a New Address</h3>
 
-        <?php if (isset($error)): ?>
-            <p class="text-red-500 mb-4"><?php echo $error; ?></p>
-        <?php endif; ?>
-
-        <form action="" method="POST" onsubmit="return validateForm()">
+        <form action="" method="POST">
             <div class="mb-4">
                 <label for="name" class="block text-gray-700">Name</label>
-                <input type="text" id="name" name="name" class="w-full border px-3 py-2" required>
+                <input type="text" id="name" name="name" class="w-full border px-3 py-2 <?php echo isset($errors['name']) ? 'border-red-500' : ''; ?>" value="<?php echo htmlspecialchars($name ?? ''); ?>">
+                <?php if (isset($errors['name'])): ?>
+                    <p class="text-red-500 text-sm"><?php echo $errors['name']; ?></p>
+                <?php endif; ?>
             </div>
             <div class="mb-4">
                 <label for="mobile" class="block text-gray-700">Mobile Number</label>
-                <input type="text" id="mobile" name="mobile" class="w-full border px-3 py-2" required>
+                <input type="text" id="mobile" name="mobile" class="w-full border px-3 py-2 <?php echo isset($errors['mobile']) ? 'border-red-500' : ''; ?>" value="<?php echo htmlspecialchars($mobile ?? ''); ?>">
+                <?php if (isset($errors['mobile'])): ?>
+                    <p class="text-red-500 text-sm"><?php echo $errors['mobile']; ?></p>
+                <?php endif; ?>
             </div>
             <div class="mb-4">
                 <label for="house_no" class="block text-gray-700">House No</label>
-                <input type="text" id="house_no" name="house_no" class="w-full border px-3 py-2" required>
+                <input type="text" id="house_no" name="house_no" class="w-full border px-3 py-2 <?php echo isset($errors['house_no']) ? 'border-red-500' : ''; ?>" value="<?php echo htmlspecialchars($house_no ?? ''); ?>">
+                <?php if (isset($errors['house_no'])): ?>
+                    <p class="text-red-500 text-sm"><?php echo $errors['house_no']; ?></p>
+                <?php endif; ?>
             </div>
             <div class="mb-4">
                 <label for="address_line1" class="block text-gray-700">Address Line 1</label>
-                <input type="text" id="address_line1" name="address_line1" class="w-full border px-3 py-2" required>
+                <input type="text" id="address_line1" name="address_line1" class="w-full border px-3 py-2 <?php echo isset($errors['address_line1']) ? 'border-red-500' : ''; ?>" value="<?php echo htmlspecialchars($address_line1 ?? ''); ?>">
+                <?php if (isset($errors['address_line1'])): ?>
+                    <p class="text-red-500 text-sm"><?php echo $errors['address_line1']; ?></p>
+                <?php endif; ?>
             </div>
             <div class="mb-4">
                 <label for="city" class="block text-gray-700">City</label>
-                <input type="text" id="city" name="city" class="w-full border px-3 py-2" required>
+                <input type="text" id="city" name="city" class="w-full border px-3 py-2 <?php echo isset($errors['city']) ? 'border-red-500' : ''; ?>" value="<?php echo htmlspecialchars($city ?? ''); ?>">
+                <?php if (isset($errors['city'])): ?>
+                    <p class="text-red-500 text-sm"><?php echo $errors['city']; ?></p>
+                <?php endif; ?>
             </div>
             <div class="mb-4">
                 <label for="state" class="block text-gray-700">State</label>
-                <input type="text" id="state" name="state" class="w-full border px-3 py-2" required>
+                <input type="text" id="state" name="state" class="w-full border px-3 py-2 <?php echo isset($errors['state']) ? 'border-red-500' : ''; ?>" value="<?php echo htmlspecialchars($state ?? ''); ?>">
+                <?php if (isset($errors['state'])): ?>
+                    <p class="text-red-500 text-sm"><?php echo $errors['state']; ?></p>
+                <?php endif; ?>
             </div>
             <div class="mb-4">
                 <label for="pin_code" class="block text-gray-700">Pin Code</label>
-                <input type="text" id="pin_code" name="pin_code" class="w-full border px-3 py-2" required>
+                <input type="text" id="pin_code" name="pin_code" class="w-full border px-3 py-2 <?php echo isset($errors['pin_code']) ? 'border-red-500' : ''; ?>" value="<?php echo htmlspecialchars($pin_code ?? ''); ?>">
+                <?php if (isset($errors['pin_code'])): ?>
+                    <p class="text-red-500 text-sm"><?php echo $errors['pin_code']; ?></p>
+                <?php endif; ?>
             </div>
             <div class="mb-6">
-                <button type="submit" class="bg-indigo-500 text-white py-2 px-4 rounded">Place Order</button>
+                <button type="submit" class="bg-indigo-500 text-white py-2 px-4 rounded">Add Address</button>
             </div>
         </form>
     </div>
