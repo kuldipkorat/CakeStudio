@@ -54,12 +54,12 @@ session_start(); // Start session to handle success/error messages
             </form>
 
             <!-- Contact Info -->
-            <!-- <div class="mt-10">
+            <div class="mt-10">
                 <h3 class="text-2xl font-bold text-gray-800">Get in Touch</h3>
                 <p class="text-lg text-gray-700 mt-2"><i class="fas fa-phone-alt"></i> +1 (555) 123-4567</p>
                 <p class="text-lg text-gray-700 mt-2"><i class="fas fa-envelope"></i> contact@cakestudio.com</p>
                 <p class="text-lg text-gray-700 mt-2"><i class="fas fa-map-marker-alt"></i> 123 Cake Street, Bakery Town, USA</p>
-            </div> -->
+            </div>
         </div>
     </section>
 
