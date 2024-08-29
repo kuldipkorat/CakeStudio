@@ -8,27 +8,28 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-if (isset($_POST['product_id'])) {
+if (isset($_POST['product_id']) && isset($_POST['weight'])) {
     $userId = $_SESSION['user_id'];
     $productId = intval($_POST['product_id']);
     $quantity = intval($_POST['quantity']) ?? 1;
+    $weight = $_POST['weight'];
 
-    // Check if the product is already in the cart
-    $stmt = $conn->prepare("SELECT id, quantity FROM cart WHERE user_id = ? AND product_id = ?");
-    $stmt->bind_param("ii", $userId, $productId);
+    // Check if the product with the specific weight is already in the cart
+    $stmt = $conn->prepare("SELECT id, quantity FROM cart WHERE user_id = ? AND product_id = ? AND weight = ?");
+    $stmt->bind_param("iis", $userId, $productId, $weight);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        // Update the quantity if the product is already in the cart
+        // Update the quantity if the product with the same weight is already in the cart
         $row = $result->fetch_assoc();
         $newQuantity = $row['quantity'] + $quantity;
-        $stmt = $conn->prepare("UPDATE cart SET quantity = ? WHERE id = ?");
+        $stmt = $conn->prepare("UPDATE cart SET quantity = ?, updated_at = NOW() WHERE id = ?");
         $stmt->bind_param("ii", $newQuantity, $row['id']);
     } else {
-        // Add the product to the cart if it's not already there
-        $stmt = $conn->prepare("INSERT INTO cart (user_id, product_id, quantity) VALUES (?, ?, ?)");
-        $stmt->bind_param("iii", $userId, $productId, $quantity);
+        // Add the product with the selected weight to the cart if it's not already there
+        $stmt = $conn->prepare("INSERT INTO cart (user_id, product_id, quantity, weight) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("iiis", $userId, $productId, $quantity, $weight);
     }
 
     $stmt->execute();
