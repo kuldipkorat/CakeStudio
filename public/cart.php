@@ -11,7 +11,7 @@ $userId = $_SESSION['user_id'];
 $totalAmount = 0;
 
 $stmt = $conn->prepare("
-    SELECT c.id, c.product_id, c.quantity, p.name, p.price, p.image 
+    SELECT c.id, c.product_id, c.quantity, c.weight, p.name, p.price, p.image 
     FROM cart c 
     JOIN products p ON c.product_id = p.id 
     WHERE c.user_id = ?
@@ -38,9 +38,7 @@ while ($row = $result->fetch_assoc()) {
 </head>
 
 <body>
-    <?php
-    include '../partials/header.php';
-    ?>
+    <?php include '../partials/header.php'; ?>
 
     <div class="container mx-auto my-10 p-6">
         <h2 class="text-3xl font-bold mb-6">My Cart</h2>
@@ -67,7 +65,10 @@ while ($row = $result->fetch_assoc()) {
                         <tr class="border-b">
                             <td class="py-2 px-4 flex items-center">
                                 <img src="../uploads/<?php echo $item['image']; ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" class="w-16 h-16 object-cover mr-4">
-                                <?php echo htmlspecialchars($item['name']); ?>
+                                <div>
+                                    <p><?php echo htmlspecialchars($item['name']); ?></p>
+                                    <p class="text-gray-500 text-sm">Weight: <?php echo htmlspecialchars($item['weight']); ?></p>
+                                </div>
                             </td>
                             <td class="py-2 px-4">$<?php echo number_format($item['price'], 2); ?></td>
                             <td class="py-2 px-4 flex items-center">
