@@ -78,6 +78,19 @@ if ($productId > 0) {
                     <p class="text-indigo-500 text-2xl font-bold mb-6">$<?php echo number_format($product['price'], 2); ?></p>
                     <form action="../src/controller/add_to_cart.php" method="POST">
                         <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product['id']); ?>">
+
+                        <!-- Weight Dropdown -->
+                        <div class="mb-4">
+                            <label for="weight" class="block text-lg font-medium text-gray-700 mb-2">Select Weight</label>
+                            <select id="weight" name="weight" class="block  border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required>
+                                <option value="" disabled selected>Select weight</option>
+                                <option value="0.5kg">0.5 kg</option>
+                                <option value="1kg">1 kg</option>
+                                <option value="2kg">2 kg</option>
+                                <option value="3kg">3 kg</option>
+                                <!-- Add more options as needed -->
+                            </select>
+                        </div>
                         <input type="hidden" name="quantity" value="1"> <!-- Default quantity -->
                         <button type="submit" class="bg-indigo-500 text-white py-2 px-4 rounded">Add to Cart</button>
                     </form>
