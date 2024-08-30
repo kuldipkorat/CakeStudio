@@ -43,27 +43,6 @@ if ($productId > 0) {
     <?php
     include '../partials/header.php';
     ?>
-    <!-- <header class="bg-indigo-600 text-white p-4 shadow-md">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-3xl font-bold cursor-pointer">
-                <a href="dashboard.php">Cake Studio</a>
-            </h1>
-            <nav class="flex items-center">
-                <a href="cart.php" class="relative text-white hover:text-indigo-200 px-3">
-                    <i class="fa fa-shopping-cart text-2xl"></i>
-                    <span id="cartCount" class="absolute -top-1 -right-2 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
-                        <?php echo isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0; ?>
-                    </span>
-                </a>
-
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="../src/controller/logout.php" class="text-white hover:text-indigo-200 px-3">Logout</a>
-                <?php else: ?>
-                    <a href="login.php" class="text-white hover:text-indigo-200 px-3">Login</a>
-                <?php endif; ?>
-            </nav>
-        </div>
-    </header> -->
 
     <!-- Main Content -->
     <div class="container mx-auto my-10 p-6 content">
