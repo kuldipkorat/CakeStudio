@@ -60,35 +60,6 @@ if ($result->num_rows > 0) {
 </head>
 
 <body class=" ">
-    <!-- Header -->
-    <!-- <header class="bg-indigo-600 text-white p-4 shadow-md z-20 relative">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-3xl font-bold">Cake Studio</h1>
-            <nav class="flex items-center">
-            <a href="cart.php" class="relative text-white hover:text-indigo-200 px-3">
-                    <i class="fa fa-shopping-cart text-2xl"></i>
-                    <span id="cartCount" class="absolute -top-1 -right-2 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
-                        <?php echo isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0; ?>
-                    </span>
-                </a>
-                <div class="relative">
-                    <button class="relative z-10 block bg-indigo-500 text-white focus:outline-none px-3 py-2 rounded">
-                        Categories <i class="fa fa-caret-down"></i>
-                    </button>
-                    <div class="dropdown-menu absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-2 hidden">
-                        <a href="cakes.php" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Cakes</a>
-                        <a href="brownies.php" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Brownies</a>
-                        <a href="pastries.php" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Pastries</a>
-                    </div>
-                </div>
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="../src/controller/logout.php" class="text-white hover:text-indigo-200 px-3">Logout</a>
-                <?php else: ?>
-                    <a href="login.php" class="text-white hover:text-indigo-200 px-3">Login</a>
-                <?php endif; ?>
-            </nav>
-        </div>
-    </header> -->
     <?php
 include '../partials/header.php'; 
 ?>
@@ -128,12 +99,12 @@ include '../partials/header.php';
     <!-- Product Showcase Sections -->
     <section class="container mx-auto my-10 p-6" id="productSection">
         <h2 class="text-2xl font-bold text-center mb-6">Our Cake Products</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <?php foreach ($products as $product): ?>
                 <?php if ($product['category'] === 'cake'): ?>
                     <div class="product-card bg-white rounded-lg shadow-lg p-4">
                         <a href="productDetail.php?id=<?php echo $product['id']; ?>">
-                        <img src="../uploads/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4" />
+                        <img src="../public/images/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4 w-full h-72 object-cover" />
                         <h3 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($product['name']); ?></h3>
                         <p class="text-gray-700 mb-2"><?php echo htmlspecialchars($product['description']); ?></p>
                         <p class="text-indigo-500 font-bold mb-4">$<?php echo number_format($product['price'], 2); ?></p>
@@ -147,12 +118,12 @@ include '../partials/header.php';
 
     <section class="container mx-auto my-10 p-6" id="brownieSection">
         <h2 class="text-2xl font-bold text-center mb-6">Our Brownie Products</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <?php foreach ($products as $product): ?>
                 <?php if ($product['category'] === 'brownie'): ?>
                     <div class="product-card bg-white rounded-lg shadow-lg p-4">
                     <a href="productDetail.php?id=<?php echo $product['id']; ?>">
-                        <img src="../uploads/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4" />
+                        <img src="../public/images/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4 w-full h-72 " />
                         <h3 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($product['name']); ?></h3>
                         <p class="text-gray-700 mb-2"><?php echo htmlspecialchars($product['description']); ?></p>
                         <p class="text-indigo-500 font-bold mb-4">$<?php echo number_format($product['price'], 2); ?></p>
@@ -166,12 +137,12 @@ include '../partials/header.php';
 
     <section class="container mx-auto my-10 p-6" id="pastrySection">
         <h2 class="text-2xl font-bold text-center mb-6">Our Pastry Products</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <?php foreach ($products as $product): ?>
                 <?php if ($product['category'] === 'pastry'): ?>
                    <div class="product-card bg-white rounded-lg shadow-lg p-4">
                    <a href="productDetail.php?id=<?php echo $product['id']; ?>">
-                        <img src="../uploads/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4" />
+                        <img src="../public/images/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4 w-full h-72 " />
                         <h3 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($product['name']); ?></h3>
                         <p class="text-gray-700 mb-2"><?php echo htmlspecialchars($product['description']); ?></p>
                         <p class="text-indigo-500 font-bold mb-4">$<?php echo number_format($product['price'], 2); ?></p>
