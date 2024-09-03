@@ -99,12 +99,12 @@ include '../partials/header.php';
     <!-- Product Showcase Sections -->
     <section class="container mx-auto my-10 p-6" id="productSection">
         <h2 class="text-2xl font-bold text-center mb-6">Our Cake Products</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <?php foreach ($products as $product): ?>
                 <?php if ($product['category'] === 'cake'): ?>
                     <div class="product-card bg-white rounded-lg shadow-lg p-4">
                         <a href="productDetail.php?id=<?php echo $product['id']; ?>">
-                        <img src="../uploads/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4" />
+                        <img src="../public/images/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4 w-full h-72 object-cover" />
                         <h3 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($product['name']); ?></h3>
                         <p class="text-gray-700 mb-2"><?php echo htmlspecialchars($product['description']); ?></p>
                         <p class="text-indigo-500 font-bold mb-4">$<?php echo number_format($product['price'], 2); ?></p>
@@ -118,12 +118,12 @@ include '../partials/header.php';
 
     <section class="container mx-auto my-10 p-6" id="brownieSection">
         <h2 class="text-2xl font-bold text-center mb-6">Our Brownie Products</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <?php foreach ($products as $product): ?>
                 <?php if ($product['category'] === 'brownie'): ?>
                     <div class="product-card bg-white rounded-lg shadow-lg p-4">
                     <a href="productDetail.php?id=<?php echo $product['id']; ?>">
-                        <img src="../uploads/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4" />
+                        <img src="../public/images/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4 w-full h-72 " />
                         <h3 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($product['name']); ?></h3>
                         <p class="text-gray-700 mb-2"><?php echo htmlspecialchars($product['description']); ?></p>
                         <p class="text-indigo-500 font-bold mb-4">$<?php echo number_format($product['price'], 2); ?></p>
@@ -137,12 +137,12 @@ include '../partials/header.php';
 
     <section class="container mx-auto my-10 p-6" id="pastrySection">
         <h2 class="text-2xl font-bold text-center mb-6">Our Pastry Products</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <?php foreach ($products as $product): ?>
                 <?php if ($product['category'] === 'pastry'): ?>
                    <div class="product-card bg-white rounded-lg shadow-lg p-4">
                    <a href="productDetail.php?id=<?php echo $product['id']; ?>">
-                        <img src="../uploads/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4" />
+                        <img src="../public/images/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4 w-full h-72 " />
                         <h3 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($product['name']); ?></h3>
                         <p class="text-gray-700 mb-2"><?php echo htmlspecialchars($product['description']); ?></p>
                         <p class="text-indigo-500 font-bold mb-4">$<?php echo number_format($product['price'], 2); ?></p>
