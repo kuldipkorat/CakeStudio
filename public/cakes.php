@@ -23,6 +23,16 @@ if ($result->num_rows > 0) {
     <title>Cake Studio - Our Cake Products</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        .product-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
 
 <body>
@@ -32,12 +42,12 @@ if ($result->num_rows > 0) {
     <!-- Product Section -->
     <section class="container mx-auto my-10 p-6" id="productSection">
         <h2 class="text-2xl font-bold text-center mb-6">Our Cake Products</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <?php foreach ($products as $product): ?>
                 <?php if ($product['category'] === 'cake'): ?>
                     <div class="product-card bg-white rounded-lg shadow-lg p-4">
                         <a href="productDetail.php?id=<?php echo $product['id']; ?>">
-                            <img src="../uploads/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4" />
+                            <img src="../public/images/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4 w-full h-72 object-cover" />
                             <h3 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($product['name']); ?></h3>
                             <p class="text-gray-700 mb-2"><?php echo htmlspecialchars($product['description']); ?></p>
                             <p class="text-indigo-500 font-bold mb-4">$<?php echo number_format($product['price'], 2); ?></p>
