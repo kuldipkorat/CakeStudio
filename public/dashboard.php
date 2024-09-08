@@ -12,6 +12,14 @@ if ($result->num_rows > 0) {
         $products[] = $row;
     }
 }
+
+function getLimitedProducts($products, $category, $limit = 6) {
+    $filteredProducts = array_filter($products, function($product) use ($category) {
+        return $product['category'] === $category;
+    });
+
+    return array_slice($filteredProducts, 0, $limit);
+}
 ?>
 
 <!DOCTYPE html>
@@ -60,9 +68,8 @@ if ($result->num_rows > 0) {
 </head>
 
 <body class=" ">
-    <?php
-include '../partials/header.php'; 
-?>
+    <?php include '../partials/header.php'; ?>
+
     <!-- Hero Section -->
     <section class="hero relative flex items-center justify-center text-center py-20 z-10">
         <div class="absolute inset-0 bg-opacity-50"></div>
@@ -100,18 +107,16 @@ include '../partials/header.php';
     <section class="container mx-auto my-10 p-6" id="productSection">
         <h2 class="text-2xl font-bold text-center mb-6">Our Cake Products</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <?php foreach ($products as $product): ?>
-                <?php if ($product['category'] === 'cake'): ?>
-                    <div class="product-card bg-white rounded-lg shadow-lg p-4">
-                        <a href="productDetail.php?id=<?php echo $product['id']; ?>">
+            <?php foreach (getLimitedProducts($products, 'cake') as $product): ?>
+                <div class="product-card bg-white rounded-lg shadow-lg p-4">
+                    <a href="productDetail.php?id=<?php echo $product['id']; ?>">
                         <img src="../public/images/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4 w-full h-72 object-cover" />
                         <h3 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($product['name']); ?></h3>
                         <p class="text-gray-700 mb-2"><?php echo htmlspecialchars($product['description']); ?></p>
                         <p class="text-indigo-500 font-bold mb-4">$<?php echo number_format($product['price'], 2); ?></p>
                         <a href="productDetail.php?id=<?php echo $product['id']; ?>" class="bg-indigo-500 text-white py-2 px-4 rounded block text-center">Buy Now</a>
-                        </a>
-                    </div>
-                <?php endif; ?>
+                    </a>
+                </div>
             <?php endforeach; ?>
         </div>
     </section>
@@ -119,18 +124,16 @@ include '../partials/header.php';
     <section class="container mx-auto my-10 p-6" id="brownieSection">
         <h2 class="text-2xl font-bold text-center mb-6">Our Brownie Products</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <?php foreach ($products as $product): ?>
-                <?php if ($product['category'] === 'brownie'): ?>
-                    <div class="product-card bg-white rounded-lg shadow-lg p-4">
+            <?php foreach (getLimitedProducts($products, 'brownie') as $product): ?>
+                <div class="product-card bg-white rounded-lg shadow-lg p-4">
                     <a href="productDetail.php?id=<?php echo $product['id']; ?>">
-                        <img src="../public/images/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4 w-full h-72 " />
+                        <img src="../public/images/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4 w-full h-72 object-cover" />
                         <h3 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($product['name']); ?></h3>
                         <p class="text-gray-700 mb-2"><?php echo htmlspecialchars($product['description']); ?></p>
                         <p class="text-indigo-500 font-bold mb-4">$<?php echo number_format($product['price'], 2); ?></p>
                         <a href="productDetail.php?id=<?php echo $product['id']; ?>" class="bg-indigo-500 text-white py-2 px-4 rounded block text-center">Buy Now</a>
-                </a>
-                    </div>
-                <?php endif; ?>
+                    </a>
+                </div>
             <?php endforeach; ?>
         </div>
     </section>
@@ -138,18 +141,16 @@ include '../partials/header.php';
     <section class="container mx-auto my-10 p-6" id="pastrySection">
         <h2 class="text-2xl font-bold text-center mb-6">Our Pastry Products</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <?php foreach ($products as $product): ?>
-                <?php if ($product['category'] === 'pastry'): ?>
-                   <div class="product-card bg-white rounded-lg shadow-lg p-4">
-                   <a href="productDetail.php?id=<?php echo $product['id']; ?>">
-                        <img src="../public/images/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4 w-full h-72 " />
+            <?php foreach (getLimitedProducts($products, 'pastry') as $product): ?>
+                <div class="product-card bg-white rounded-lg shadow-lg p-4">
+                    <a href="productDetail.php?id=<?php echo $product['id']; ?>">
+                        <img src="../public/images/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4 w-full h-72 object-cover" />
                         <h3 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($product['name']); ?></h3>
                         <p class="text-gray-700 mb-2"><?php echo htmlspecialchars($product['description']); ?></p>
                         <p class="text-indigo-500 font-bold mb-4">$<?php echo number_format($product['price'], 2); ?></p>
                         <a href="productDetail.php?id=<?php echo $product['id']; ?>" class="bg-indigo-500 text-white py-2 px-4 rounded block text-center">Buy Now</a>
-                        </a> 
-                    </div>
-                <?php endif; ?>
+                    </a>
+                </div>
             <?php endforeach; ?>
         </div>
     </section>
