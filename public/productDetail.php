@@ -49,7 +49,7 @@ if ($productId > 0) {
         <?php if ($product): ?>
             <div id="productDetail" class="flex flex-col md:flex-row">
                 <div class="md:w-1/2 p-4">
-                    <img src="../public/images/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="w-full h-full max-w-md mx-auto rounded mb-4">
+                    <img src="../public/images/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="w-full h-full     max-w-md mx-auto rounded mb-4">
                 </div>
                 <div class="md:w-1/2 p-4">
                     <h2 class="text-3xl font-bold mb-4"><?php echo htmlspecialchars($product['name']); ?></h2>
