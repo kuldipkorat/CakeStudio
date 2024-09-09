@@ -64,9 +64,14 @@ while ($row = $result->fetch_assoc()) {
                         ?>
                         <tr class="border-b">
                             <td class="py-2 px-4 flex items-center">
-                                <img src="../uploads/<?php echo $item['image']; ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" class="w-16 h-16 object-cover mr-4">
+                                <a href="productDetail.php?id=<?php echo $item['product_id']; ?>">
+                                    <img src="../public/images/<?php echo $item['image']; ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" class="w-16 h-16 object-cover mr-4">
+                                </a>
                                 <div>
-                                    <p><?php echo htmlspecialchars($item['name']); ?></p>
+                                    <a href="productDetail.php?id=<?php echo $item['product_id']; ?>">
+                                        <p><?php echo htmlspecialchars($item['name']); ?></p>
+                                    </a>
+
                                     <p class="text-gray-500 text-sm">Weight: <?php echo htmlspecialchars($item['weight']); ?></p>
                                 </div>
                             </td>

@@ -20,6 +20,11 @@ if (isset($_SESSION['user_id'])) {
 </head>
 
 <body class=" ">
+<div>
+        <a href="dashboard.php">
+        <h1 class="text-4xl font-bold mb-5 mt-12 text-center underline">Cake studio</h1>
+        </a>
+    </div>
     <div class="container mx-auto max-w-md mt-10 p-5 bg-white rounded shadow-md">
         <h2 class="text-2xl font-bold mb-5 text-center">Register</h2>
                 <!-- Display Error Message -->
