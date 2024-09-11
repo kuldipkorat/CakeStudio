@@ -31,7 +31,9 @@ if ($productId > 0) {
             flex-direction: column;
             min-height: 100vh;
         }
-
+        .container {
+            max-width: 1200px;
+        }
         .content {
             flex: 1;
         }

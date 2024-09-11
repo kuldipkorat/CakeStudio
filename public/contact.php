@@ -9,13 +9,18 @@ session_start(); // Start session to handle success/error messages
     <title>Contact Us - Cake Studio</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 1200px;
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
+<body>
     <!-- Header -->
     <?php include('../partials/header.php'); ?>
 
-    <section class="bg-white py-10">
-        <div class="container mx-auto px-4">
+    <section class="container bg-white py-10">
+        <div class=" mx-auto px-4">
 
             <!-- Page Title -->
             <h2 class="text-4xl font-bold text-indigo-600 mb-4">Contact Us</h2>
@@ -54,12 +59,12 @@ session_start(); // Start session to handle success/error messages
             </form>
 
             <!-- Contact Info -->
-            <div class="mt-10">
+            <!-- <div class="mt-10">
                 <h3 class="text-2xl font-bold text-gray-800">Get in Touch</h3>
                 <p class="text-lg text-gray-700 mt-2"><i class="fas fa-phone-alt"></i> +1 (555) 123-4567</p>
                 <p class="text-lg text-gray-700 mt-2"><i class="fas fa-envelope"></i> contact@cakestudio.com</p>
                 <p class="text-lg text-gray-700 mt-2"><i class="fas fa-map-marker-alt"></i> 123 Cake Street, Bakery Town, USA</p>
-            </div>
+            </div> -->
         </div>
     </section>
 
