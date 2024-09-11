@@ -1,5 +1,10 @@
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .dropdown:hover {
+            background-color: #53a8b6;
+        }
+    </style>
 </head>
 <header class="text-black p-4 z-20 relative" style="font-family: 'Roboto', sans-serif;">
     <div class="container mx-auto flex justify-between items-center">
@@ -20,9 +25,9 @@
                     Categories <i class="fa fa-caret-down"></i>
                 </button>
                 <div id="dropdownMenu" class="dropdown-menu absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-xl py-2 hidden border-black">
-                    <a href="cakes.php" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Cakes</a>
-                    <a href="brownies.php" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Brownies</a>
-                    <a href="pastries.php" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Pastries</a>
+                    <a href="cakes.php" class="block px-4 py-2 text-gray-800 dropdown hover:text-white">Cakes</a>
+                    <a href="brownies.php" class="block px-4 py-2 text-gray-800 dropdown hover:text-white">Brownies</a>
+                    <a href="pastries.php" class="block px-4 py-2 text-gray-800 dropdown hover:text-white">Pastries</a>
                 </div>
             </div>
 
@@ -32,9 +37,9 @@
 
             <!-- User Login/Logout -->
             <?php if (isset($_SESSION['user_id'])): ?>
-                <a href="../src/controller/logout.php" class="hover-color text-black  px-3 ">Logout</a>
+                <a href="../src/controller/logout.php" class="button border-2 border-black text-black bg-blue-100 rounded-full px-4 py-2">Logout</a>
             <?php else: ?>
-                <a href="login.php" class="hover-color text-black  px-3">Login</a>
+                <a href="login.php" class="button border-2 border-black text-black bg-blue-100 rounded-full px-4 py-2">Login</a>
             <?php endif; ?>
         </nav>
     </div>
@@ -60,5 +65,18 @@
 <style>
     .hover-color:hover {
         color: #53a8b6;
+    }
+
+    .button {
+        background-color: white;
+        color: black;
+        border-color: #53a8b6;
+
+    }
+
+    .button:hover {
+        background-color: #53a8b6;
+        border-color: white;
+        color: white;
     }
 </style>

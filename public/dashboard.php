@@ -105,13 +105,13 @@ function getLimitedProducts($products, $category, $limit = 4)
             /* background-color: #53a8b6; */
             background-color: white;
             color: black;
-            border-color: black;
+            border-color: #53a8b6;
         }
         .button-color:hover {
             background-color: #53a8b6;
             /* background-color: white; */
+            border-color: white;
             color: white;
-            border-color: black;
         }
     </style>
 </head>
@@ -181,8 +181,8 @@ function getLimitedProducts($products, $category, $limit = 4)
                         <img src="../public/images/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4 w-full h-56 object-cover" />
                         <h3 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($product['name']); ?></h3>
                         <p class="text-gray-700 mb-2 h-12"><?php echo htmlspecialchars($product['description']); ?></p>
-                        <p class="text-indigo-500 font-bold mb-4">$<?php echo number_format($product['price'], 2); ?></p>
-                        <a href="productDetail.php?id=<?php echo $product['id']; ?>" class="button-color text-white py-2 px-4 rounded block text-center">Buy Now</a>
+                        <p class="text-black font-bold mb-4 text-xl">$<?php echo number_format($product['price'], 2); ?></p>
+                        <a href="productDetail.php?id=<?php echo $product['id']; ?>" class="button-color border-2 py-2 px-4 rounded-full block text-center">Buy Now</a>
                     </a>
                 </div>
             <?php endforeach; ?>
@@ -198,8 +198,8 @@ function getLimitedProducts($products, $category, $limit = 4)
                         <img src="../public/images/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4 w-full h-56 object-cover" />
                         <h3 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($product['name']); ?></h3>
                         <p class="text-gray-700 mb-2 h-12"><?php echo htmlspecialchars($product['description']); ?></p>
-                        <p class="text-indigo-500 font-bold mb-4">$<?php echo number_format($product['price'], 2); ?></p>
-                        <a href="productDetail.php?id=<?php echo $product['id']; ?>" class="button-color text-white py-2 px-4 rounded block text-center">Buy Now</a>
+                        <p class="text-black font-bold mb-4 text-xl">$<?php echo number_format($product['price'], 2); ?></p>
+                        <a href="productDetail.php?id=<?php echo $product['id']; ?>" class="button-color border-2 py-2 px-4 rounded-full block text-center">Buy Now</a>
                     </a>
                 </div>
             <?php endforeach; ?>

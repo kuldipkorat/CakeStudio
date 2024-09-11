@@ -36,6 +36,18 @@ if ($result->num_rows > 0) {
             transform: scale(1.05);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
+        .button-color {
+            /* background-color: #53a8b6; */
+            background-color: white;
+            color: black;
+            border-color: #53a8b6;
+        }
+        .button-color:hover {
+            background-color: #53a8b6;
+            /* background-color: white; */
+            border-color: white;
+            color: white;
+        }
     </style>
 </head>
 
@@ -46,16 +58,16 @@ if ($result->num_rows > 0) {
     <!-- Product Section -->
     <section class="container mx-auto my-10 p-6" id="productSection">
         <!-- <h2 class="text-2xl font-bold text-center mb-6">Our Cake Products</h2> -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <?php foreach ($products as $product): ?>
                 <?php if ($product['category'] === 'cake'): ?>
-                    <div class="product-card bg-blue-100 rounded-lg shadow-lg p-4 my-5">
+                    <div class="product-card rounded-lg shadow-lg p-4 my-5">
                         <a href="productDetail.php?id=<?php echo $product['id']; ?>">
                             <img src="../public/images/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4 w-full h-56 object-cover" />
                             <h3 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($product['name']); ?></h3>
-                            <p class="text-gray-700 mb-2"><?php echo htmlspecialchars($product['description']); ?></p>
-                            <p class="text-indigo-500 font-bold mb-4">$<?php echo number_format($product['price'], 2); ?></p>
-                            <a href="productDetail.php?id=<?php echo $product['id']; ?>" class="bg-indigo-500 text-white py-2 px-4 rounded block text-center">Buy Now</a>
+                            <p class="text-gray-700 mb-2 h-12"><?php echo htmlspecialchars($product['description']); ?></p>
+                            <p class="text-black font-bold mb-4 text-xl">$<?php echo number_format($product['price'], 2); ?></p>
+                            <a href="productDetail.php?id=<?php echo $product['id']; ?>" class="button-color border-2 py-2 px-4 rounded-full block text-center">Buy Now</a>
                         </a>
                     </div>
                 <?php endif; ?>
