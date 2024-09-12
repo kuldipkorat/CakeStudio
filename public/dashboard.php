@@ -135,19 +135,19 @@ function getLimitedProducts($products, $category, $limit = 4)
     <section class="container mx-auto my-10 p-6" style="font-family: 'Roboto', sans-serif;">
         <!-- <h2 class="text-2xl font-bold text-center mb-6">Why Choose Us?</h2> -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="policy-card p-4 rounded-lg text-center shadow-lg border-2">
+            <div class="product-card policy-card p-4 rounded-lg text-center shadow-lg border-2">
                 <i class="fas fa-leaf text-4xl text-green-500 mb-4"></i>
                 <p class="text-lg font-semibold">100% Veg</p>
             </div>
-            <div class="policy-card p-4 rounded-lg text-center shadow-lg border-2">
+            <div class="product-card policy-card p-4 rounded-lg text-center shadow-lg border-2">
                  <i class="fas fa-egg text-4xl text-yellow-500 mb-4"></i> 
                 <p class="text-lg font-semibold">Eggless Cakes</p>
             </div>
-            <div class="policy-card p-4 rounded-lg text-center shadow-lg border-2">
+            <div class="product-card policy-card p-4 rounded-lg text-center shadow-lg border-2">
                 <i class="fas fa-apple-alt text-4xl text-red-500 mb-4"></i>
                 <p class="text-lg font-semibold">Fresh Products</p>
             </div>
-            <div class="policy-card p-4 rounded-lg text-center shadow-lg border-2">
+            <div class="product-card policy-card p-4 rounded-lg text-center shadow-lg border-2">
                 <i class="fas fa-th-large text-4xl text-blue-500 mb-4"></i>
                 <p class="text-lg font-semibold">Wide Variety</p>
             </div>
@@ -170,6 +170,9 @@ function getLimitedProducts($products, $category, $limit = 4)
                 </div>
             <?php endforeach; ?>
         </div>
+        <div class="text-center mt-6">
+        <a href="cakes.php" class="button-color border-2 py-3 px-6 rounded-full inline-block">Show More</a>
+    </div>
     </section>
 
     <section class="container mx-auto my-10 p-6" id="brownieSection">
@@ -187,6 +190,9 @@ function getLimitedProducts($products, $category, $limit = 4)
                 </div>
             <?php endforeach; ?>
         </div>
+        <div class="text-center mt-6">
+        <a href="brownies.php" class="button-color border-2 py-3 px-6 rounded-full inline-block">Show More</a>
+    </div>
     </section>
 
     <section class="container mx-auto my-10 p-6" id="pastrySection">
@@ -204,6 +210,9 @@ function getLimitedProducts($products, $category, $limit = 4)
                 </div>
             <?php endforeach; ?>
         </div>
+        <div class="text-center mt-6">
+        <a href="pastries.php" class="button-color border-2 py-3 px-6 rounded-full inline-block">Show More</a>
+    </div>
     </section>
 
     <!-- Footer -->

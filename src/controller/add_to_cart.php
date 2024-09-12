@@ -8,28 +8,43 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-if (isset($_POST['product_id']) && isset($_POST['weight'])) {
+if (isset($_POST['product_id'])) {
     $userId = $_SESSION['user_id'];
     $productId = intval($_POST['product_id']);
     $quantity = intval($_POST['quantity']) ?? 1;
-    $weight = $_POST['weight'];
+    $weight = isset($_POST['weight']) ? $_POST['weight'] : null;
 
-    // Check if the product with the specific weight is already in the cart
-    $stmt = $conn->prepare("SELECT id, quantity FROM cart WHERE user_id = ? AND product_id = ? AND weight = ?");
-    $stmt->bind_param("iis", $userId, $productId, $weight);
+    // Build the query conditionally based on whether weight is provided
+    if ($weight) {
+        // Case when weight is provided (e.g., for cakes)
+        $stmt = $conn->prepare("SELECT id, quantity FROM cart WHERE user_id = ? AND product_id = ? AND weight = ?");
+        $stmt->bind_param("iis", $userId, $productId, $weight);
+    } else {
+        // Case when weight is not provided (e.g., for brownies or pastries)
+        $stmt = $conn->prepare("SELECT id, quantity FROM cart WHERE user_id = ? AND product_id = ? AND weight IS NULL");
+        $stmt->bind_param("ii", $userId, $productId);
+    }
+
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        // Update the quantity if the product with the same weight is already in the cart
+        // Update the quantity if the product with the same weight (or no weight) is already in the cart
         $row = $result->fetch_assoc();
         $newQuantity = $row['quantity'] + $quantity;
         $stmt = $conn->prepare("UPDATE cart SET quantity = ?, updated_at = NOW() WHERE id = ?");
         $stmt->bind_param("ii", $newQuantity, $row['id']);
     } else {
-        // Add the product with the selected weight to the cart if it's not already there
-        $stmt = $conn->prepare("INSERT INTO cart (user_id, product_id, quantity, weight) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("iiis", $userId, $productId, $quantity, $weight);
+        // Insert new product into the cart
+        if ($weight) {
+            // Insert with weight if applicable
+            $stmt = $conn->prepare("INSERT INTO cart (user_id, product_id, quantity, weight) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("iiis", $userId, $productId, $quantity, $weight);
+        } else {
+            // Insert without weight if not applicable
+            $stmt = $conn->prepare("INSERT INTO cart (user_id, product_id, quantity) VALUES (?, ?, ?)");
+            $stmt->bind_param("iii", $userId, $productId, $quantity);
+        }
     }
 
     $stmt->execute();

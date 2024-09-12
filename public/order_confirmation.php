@@ -62,16 +62,26 @@ $stmt->execute();
 $orderId = $stmt->insert_id; // Get the order ID for the order items
 
 // Insert each cart item into the order_items table, including the weight
+// Insert each cart item into the order_items table, including the weight
 foreach ($orderItems as $item) {
-    $stmt = $conn->prepare("INSERT INTO order_items (order_id, product_id, quantity, price, weight) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("iiidd", $orderId, $item['product_id'], $item['quantity'], $item['price'], $item['weight']);
+    // If the weight is null or empty, bind NULL instead of a string/decimal value
+    if (empty($item['weight'])) {
+        $stmt = $conn->prepare("INSERT INTO order_items (order_id, product_id, quantity, price, weight) VALUES (?, ?, ?, ?, NULL)");
+        $stmt->bind_param("iiid", $orderId, $item['product_id'], $item['quantity'], $item['price']);
+    } else {
+        $stmt = $conn->prepare("INSERT INTO order_items (order_id, product_id, quantity, price, weight) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("iiidd", $orderId, $item['product_id'], $item['quantity'], $item['price'], $item['weight']);
+    }
     $stmt->execute();
 }
+
 
 // Clear the cart for the user
 $stmt = $conn->prepare("DELETE FROM cart WHERE user_id = ?");
 $stmt->bind_param("i", $userId);
 $stmt->execute();
+// Update session cart count to 0 after clearing the cart
+$_SESSION['cart_count'] = 0;
 
 ?>
 
@@ -83,6 +93,21 @@ $stmt->execute();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Confirmation - Cake Studio</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+                .button-color {
+            /* background-color: #53a8b6; */
+            background-color: white;
+            color: black;
+            border-color: #53a8b6;
+        }
+        .button-color:hover {
+            background-color: #53a8b6;
+            /* background-color: white; */
+            border-color: white;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
@@ -98,7 +123,7 @@ $stmt->execute();
         <p><?php echo htmlspecialchars($address['city']); ?>, <?php echo htmlspecialchars($address['state']); ?> - <?php echo htmlspecialchars($address['pin_code']); ?></p>
         <p>Mobile: <?php echo htmlspecialchars($address['mobile']); ?></p>
 
-        <a href="dashboard.php" class="bg-indigo-500 text-white py-2 px-4 rounded mt-8">Continue Shopping</a>
+        <a href="dashboard.php" class="button-color text-white py-2 px-4 rounded mt-8">Continue Shopping</a>
     </div>
 
     <?php include '../partials/footer.php'; ?>

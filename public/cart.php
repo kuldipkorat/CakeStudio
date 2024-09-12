@@ -71,8 +71,10 @@ while ($row = $result->fetch_assoc()) {
                                     <a href="productDetail.php?id=<?php echo $item['product_id']; ?>">
                                         <p><?php echo htmlspecialchars($item['name']); ?></p>
                                     </a>
+                                    <?php if (!empty($item['weight'])): ?>
+                                        <p class="text-gray-500 text-sm">Weight: <?php echo htmlspecialchars($item['weight']); ?></p>
+                                    <?php endif; ?>
 
-                                    <p class="text-gray-500 text-sm">Weight: <?php echo htmlspecialchars($item['weight']); ?></p>
                                 </div>
                             </td>
                             <td class="py-2 px-4">$<?php echo number_format($item['price'], 2); ?></td>

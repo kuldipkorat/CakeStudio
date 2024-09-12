@@ -4,12 +4,18 @@
         .dropdown:hover {
             background-color: #53a8b6;
         }
+        .logo-text {
+            color: #53a8b6;
+        }
     </style>
 </head>
 <header class="text-black p-4 z-20 relative" style="font-family: 'Roboto', sans-serif;">
-    <div class="container mx-auto flex justify-between items-center">
+    <div class="container mx-auto flex justify-between items-center ">
         <a href="../public/dashboard.php">
-            <h1 class="text-3xl font-bold">Cake Studio</h1>
+            <div class="flex justify-center items-center ">
+            <img src="../public/images/logo.png" alt="Cake Studio Logo" class="h-12 mr-3">
+            <h1 class="text-3xl font-bold logo-text">Cake Studio</h1>
+            </div>
         </a>
         <nav class="flex items-center">
             <!-- Shopping Cart -->
@@ -71,7 +77,6 @@
         background-color: white;
         color: black;
         border-color: #53a8b6;
-
     }
 
     .button:hover {
