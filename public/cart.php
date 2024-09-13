@@ -35,6 +35,27 @@ while ($row = $result->fetch_assoc()) {
     <title>Your Cart - Cake Studio</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 1200px;
+        }
+
+        .home-button {
+            background-color: #53a8b6;
+            border-color: white;
+            color: white;
+        }
+
+        .home-button:hover {
+            background-color: white;
+            color: black;
+            border-color: #53a8b6;
+        }
+        .table-head {
+            background-color: #53a8b6;
+
+        }
+    </style>
 </head>
 
 <body>
@@ -44,11 +65,11 @@ while ($row = $result->fetch_assoc()) {
         <h2 class="text-3xl font-bold mb-6">My Cart</h2>
         <?php if (empty($cartItems)): ?>
             <p class="mb-5">Your cart is empty.</p>
-            <a href="dashboard.php" class="text-indigo-600 bg-gray-200 text-gray-800 py-2 px-4 rounded hover:bg-gray-300">Continue Shopping</a>
+            <a href="dashboard.php" class="home-button py-2 px-4 rounded border">Continue Shopping</a>
         <?php else: ?>
             <table class="w-full text-left mb-6 border">
                 <thead>
-                    <tr class="bg-gray-200">
+                    <tr class="table-head">
                         <th class="py-2 px-4">Product</th>
                         <th class="py-2 px-4">Price</th>
                         <th class="py-2 px-4">Quantity</th>
@@ -78,7 +99,7 @@ while ($row = $result->fetch_assoc()) {
                                 </div>
                             </td>
                             <td class="py-2 px-4">$<?php echo number_format($item['price'], 2); ?></td>
-                            <td class="py-2 px-4 flex items-center">
+                            <td class="py-2 px-4">
                                 <button onclick="updateCart(<?php echo $item['product_id']; ?>, -1)" class="bg-gray-200 px-2 py-1 rounded hover:bg-gray-300">-</button>
                                 <span class="mx-2"><?php echo $item['quantity']; ?></span>
                                 <button onclick="updateCart(<?php echo $item['product_id']; ?>, 1)" class="bg-gray-200 px-2 py-1 rounded hover:bg-gray-300">+</button>
@@ -100,8 +121,8 @@ while ($row = $result->fetch_assoc()) {
             </div>
 
             <div class="flex justify-between">
-                <a href="dashboard.php" class="bg-gray-200 text-gray-800 py-2 px-4 rounded hover:bg-gray-300">Continue Shopping</a>
-                <a href="checkout.php" class="bg-indigo-500 text-white py-2 px-4 rounded hover:bg-indigo-600">Proceed to Checkout</a>
+                <a href="dashboard.php" class="home-button border py-2 px-4 rounded ">Continue Shopping</a>
+                <a href="checkout.php" class="home-button border py-2 px-4 rounded">Proceed to Checkout</a>
             </div>
         <?php endif; ?>
     </div>
