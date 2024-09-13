@@ -32,18 +32,89 @@ if ($productId > 0) {
             flex-direction: column;
             min-height: 100vh;
         }
+
         .container {
             max-width: 1200px;
         }
+
         .content {
             flex: 1;
         }
+
         .key-points ul {
             list-style-type: disc;
             margin-left: 20px;
         }
+
         .key-points li {
             margin-bottom: 8px;
+        }
+
+        .button-color {
+            background-color: white;
+            color: black;
+            border-color: #53a8b6;
+        }
+
+        .button-color:hover {
+            background-color: #53a8b6;
+            border-color: white;
+            color: white;
+        }
+
+        .home-button {
+            background-color: #53a8b6;
+            border-color: white;
+            color: white;
+        }
+
+        .home-button:hover {
+            background-color: white;
+            color: black;
+            border-color: #53a8b6;
+        }
+
+        /* Dropdown styling */
+        .custom-dropdown select {
+            appearance: none;
+            background-color: #fff;
+            border: 2px solid #53a8b6;
+            padding: 8px;
+            font-size: 1rem;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 300px;
+            color: #333;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .custom-dropdown select:hover {
+            border-color: #53a8b6;
+            background-color: #f0f7f9;
+        }
+
+        .custom-dropdown select:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(83, 168, 182, 0.5);
+        }
+
+        /* Arrow for dropdown */
+        .custom-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .custom-dropdown::after {
+            content: "\f078";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            right: 16px;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #53a8b6;
         }
     </style>
 </head>
@@ -64,9 +135,9 @@ if ($productId > 0) {
                 <div class="md:w-1/2 p-4">
                     <h2 class="text-3xl font-bold mb-4"><?php echo htmlspecialchars($product['name']); ?></h2>
                     <p class="text-gray-700 mb-4"><?php echo htmlspecialchars($product['description']); ?></p>
-                    
+
                     <!-- Product Price -->
-                    <p class="text-indigo-500 text-2xl font-bold mb-6">$<?php echo number_format($product['price'], 2); ?></p>
+                    <p class="text-black text-2xl font-bold mb-6">$<?php echo number_format($product['price'], 2); ?></p>
 
                     <!-- Key Points Section -->
                     <div class="key-points mb-6">
@@ -83,11 +154,11 @@ if ($productId > 0) {
                     <!-- Display Weight Dropdown only if the category is 'cake' -->
                     <form action="../src/controller/add_to_cart.php" method="POST">
                         <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product['id']); ?>">
-                        
+
                         <?php if (strtolower($product['category']) === 'cake'): ?>
-                            <div class="mb-4">
+                            <div class="custom-dropdown mb-4">
                                 <label for="weight" class="block text-lg font-medium text-gray-700 mb-2">Select Weight</label>
-                                <select id="weight" name="weight" class="block border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required>
+                                <select id="weight" name="weight" class="block shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required>
                                     <option value="" disabled selected>Select weight</option>
                                     <option value="0.5kg">0.5 kg</option>
                                     <option value="1kg">1 kg</option>
@@ -95,18 +166,18 @@ if ($productId > 0) {
                                     <option value="3kg">3 kg</option>
                                 </select>
                             </div>
-                            
-                            <?php endif; ?>
-                            <input type="hidden" name="quantity" value="1"> <!-- Default quantity -->
-                            <button type="submit" class="bg-indigo-500 text-white py-2 px-4 rounded">Add to Cart</button>
-                        </form>
+                        <?php endif; ?>
+                        
+                        <input type="hidden" name="quantity" value="1"> <!-- Default quantity -->
+                        <button type="submit" class="button-color border text-white py-2 px-4 rounded-full">Add to Cart</button>
+                    </form>
                 </div>
             </div>
         <?php else: ?>
             <p class="text-red-500 text-lg">Product not found.</p>
         <?php endif; ?>
         <div class="text-center mt-6">
-            <a href="dashboard.php" class="text-indigo-500 hover:underline">Back to Products</a>
+            <a href="dashboard.php" class="home-button border py-2 px-4">Back to Products</a>
         </div>
     </div>
 
