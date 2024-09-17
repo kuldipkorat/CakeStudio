@@ -95,17 +95,32 @@ $_SESSION['cart_count'] = 0;
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-                .button-color {
-            /* background-color: #53a8b6; */
+        .container {
+            max-width: 1200px;
+        }
+
+        .button-color {
             background-color: white;
             color: black;
             border-color: #53a8b6;
         }
+
         .button-color:hover {
             background-color: #53a8b6;
-            /* background-color: white; */
             border-color: white;
             color: white;
+        }
+
+        .home-button {
+            background-color: #53a8b6;
+            border-color: white;
+            color: white;
+        }
+
+        .home-button:hover {
+            background-color: white;
+            color: black;
+            border-color: #53a8b6;
         }
     </style>
 </head>
@@ -123,7 +138,7 @@ $_SESSION['cart_count'] = 0;
         <p><?php echo htmlspecialchars($address['city']); ?>, <?php echo htmlspecialchars($address['state']); ?> - <?php echo htmlspecialchars($address['pin_code']); ?></p>
         <p>Mobile: <?php echo htmlspecialchars($address['mobile']); ?></p>
 
-        <a href="dashboard.php" class="button-color text-white py-2 px-4 rounded mt-8">Continue Shopping</a>
+        <a href="dashboard.php" class="home-button border text-white py-2 px-4 rounded "><button class="mt-12">Continue Shopping</button></a>
     </div>
 
     <?php include '../partials/footer.php'; ?>
