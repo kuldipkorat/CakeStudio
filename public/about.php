@@ -11,6 +11,10 @@
         .container {
             max-width: 1200px;
         }
+
+        .text-color {
+            color: #53a8b6;
+        }
     </style>
 </head>
 
@@ -19,9 +23,9 @@
     <?php include('../partials/header.php'); ?>
 
     <!-- About Us Section -->
-    <section class="container h-screen bg-white py-10">
-        <div class="mx-auto px-4">
-            <h2 class="text-4xl font-bold text-indigo-600 mb-4">About Cake Studio</h2>
+    <section class="h-screen bg-white py-10">
+        <div class="container mx-auto px-4">
+            <h2 class="text-color text-4xl font-bold mb-4">About Cake Studio</h2>
             <p class="text-lg text-gray-700 mb-4">
                 Cake Studio is your go-to place for delicious cakes, brownies, pastries, and more. We take pride in offering high-quality, freshly baked goods that satisfy all taste buds. Our team of expert bakers brings their passion for baking to life with every treat.
             </p>

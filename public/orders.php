@@ -43,6 +43,10 @@ $result = $stmt->get_result();
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
+        .container {
+            max-width: 1200px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -76,7 +80,8 @@ $result = $stmt->get_result();
     <?php
     include '../partials/header.php';
     ?>
-    <h1>My Orders</h1>
+
+    <h1 class="font-bold text-3xl mb-5">My Orders</h1>
 
     <table>
         <thead>
@@ -132,8 +137,8 @@ $result = $stmt->get_result();
                 <?php
                     // Calculate the total amount for the order
                     $totalAmount += $row['product_price'] * $row['quantity'];
-                    // Add to grand total
-                    // $grandTotal += $row['product_price'] * $row['quantity'];
+                // Add to grand total
+                // $grandTotal += $row['product_price'] * $row['quantity'];
                 endwhile;
                 ?>
                 <!-- Display total for the last order -->
@@ -153,7 +158,6 @@ $result = $stmt->get_result();
             <?php endif; ?>
         </tbody>
     </table>
-
 </body>
 
 </html>

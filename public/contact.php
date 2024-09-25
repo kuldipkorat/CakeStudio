@@ -13,17 +13,40 @@ session_start(); // Start session to handle success/error messages
         .container {
             max-width: 1200px;
         }
+        .text-color {
+            color: #53a8b6;
+        }
+        .input-border {
+            border-color: gray;
+        }
+
+        .input-border:focus {
+            border-color: #53a8b6;
+            outline: none;
+        }
+
+        .home-button {
+            background-color: #53a8b6;
+            border-color: white;
+            color: white;
+        }
+
+        .home-button:hover {
+            background-color: white;
+            color: black;
+            border-color: #53a8b6;
+        }
     </style>
 </head>
 <body>
     <!-- Header -->
     <?php include('../partials/header.php'); ?>
 
-    <section class="container bg-white py-10">
-        <div class=" mx-auto px-4">
+    <section class="bg-white py-10">
+        <div class="container mx-auto px-4">
 
             <!-- Page Title -->
-            <h2 class="text-4xl font-bold text-indigo-600 mb-4">Contact Us</h2>
+            <h2 class="text-color text-4xl font-bold mb-4">Contact Us</h2>
             <p class="text-lg text-gray-700 mb-6">
                 Have any questions? Feel free to reach out to us using the form below or give us a call. We're always happy to help!
             </p>
@@ -42,20 +65,20 @@ session_start(); // Start session to handle success/error messages
             <?php endif; ?>
 
             <!-- Contact Form -->
-            <form action="../src/controller/submit_contact.php" method="POST" class="bg-gray-100 p-6 rounded-lg shadow-md">
+            <form action="" method="" class="bg-gray-100 p-6 rounded-lg shadow-md">
                 <div class="mb-4">
                     <label for="name" class="block text-lg font-semibold text-gray-700 mb-2">Name</label>
-                    <input type="text" id="name" name="name" class="w-full p-3 border border-gray-300 rounded-md" >
+                    <input type="text" id="name" name="name" class="input-border rounded-full w-full p-3 border" >
                 </div>
                 <div class="mb-4">
                     <label for="email" class="block text-lg font-semibold text-gray-700 mb-2">Email</label>
-                    <input type="email" id="email" name="email" class="w-full p-3 border border-gray-300 rounded-md" >
+                    <input type="email" id="email" name="email" class="input-border rounded-full w-full p-3 border" >
                 </div>
                 <div class="mb-4">
                     <label for="message" class="block text-lg font-semibold text-gray-700 mb-2">Message</label>
-                    <textarea id="message" name="message" rows="6" class="w-full p-3 border border-gray-300 rounded-md"s></textarea>
+                    <textarea id="message" name="message" rows="6" class="input-border rounded-lg w-full p-3 border"></textarea>
                 </div>
-                <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Submit</button>
+                <button type="submit" class="home-button text-white px-4 py-2 rounded border">Submit</button>
             </form>
 
             <!-- Contact Info -->
