@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "root";
 $database = "cake_studio";
 
 $conn = new mysqli($servername, $username, $password, $database);
