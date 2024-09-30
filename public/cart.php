@@ -64,8 +64,10 @@ while ($row = $result->fetch_assoc()) {
     <div class="container mx-auto my-10 p-6">
         <h2 class="text-3xl font-bold mb-6">My Cart</h2>
         <?php if (empty($cartItems)): ?>
+            <div class="h-screen">
             <p class="mb-5">Your cart is empty.</p>
             <a href="dashboard.php" class="home-button py-2 px-4 rounded border">Continue Shopping</a>
+            </div>
         <?php else: ?>
             <table class="w-full text-left mb-6 border">
                 <thead>
