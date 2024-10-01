@@ -1,43 +1,52 @@
 <?php
-// Enable error reporting for debugging
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-// Start the session
 session_start();
+require '../src/config/db.php';
 
-// Check if the user is logged in
-if (isset($_SESSION['user_id'])) {
-    // If logged in, redirect to the dashboard
-    header('Location: ../src/controller/login.php');
-    exit();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Fetch admin from the database
+    $stmt = $conn->prepare("SELECT * FROM admin WHERE email = ?");
+    $stmt->bind_param('s', $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $admin = $result->fetch_assoc();
+
+    // Check if admin exists and password matches
+    if ($admin && password_verify($password, $admin['password'])) {
+        $_SESSION['admin_id'] = $admin['id'];
+        $_SESSION['admin_name'] = $admin['name'];
+        header('Location: ../public/admin_dashboard.php');
+        exit;
+    } else {
+        $error = "Invalid email or password!";
+    }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cake Studio Login</title>
+    <title>Admin Login</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         .logo-color {
             color: #53a8b6;
         }
-
         .button-color {
             background-color: white;
             color: black;
             border-color: #53a8b6;
         }
-
         .button-color:hover {
             background-color: #53a8b6;
             border-color: white;
             color: white;
         }
-
         .input-border {
             border-color: gray;
         }
@@ -76,16 +85,14 @@ if (isset($_SESSION['user_id'])) {
 
 <body class="bg-gray-100">
     <div>
-        <a href="dashboard.php">
-            <div class="flex justify-center items-center ">
-                <img class="h-24" src="../public/images/logo.png" alt="">
-                <h1 class="logo-color text-4xl font-bold mb-5 mt-12 text-center">Cake Studio</h1>
-            </div>
-        </a>
+        <div class="flex justify-center items-center mt-12">
+            <img class="h-24" src="../public/images/logo.png" alt="Admin Logo">
+            <h1 class="logo-color text-4xl font-bold text-center">Admin Portal</h1>
+        </div>
     </div>
 
     <div class="container mx-auto max-w-md mt-10 p-5 bg-white rounded shadow-md">
-        <h2 class="text-2xl font-bold mb-5 text-center">User Login</h2>
+        <h2 class="text-2xl font-bold mb-5 text-center">Admin Login</h2>
 
         <!-- Button Group for User/Admin Login -->
         <div class="button-group">
@@ -94,35 +101,26 @@ if (isset($_SESSION['user_id'])) {
         </div>
 
         <!-- Error Message Display -->
-        <?php if (isset($_SESSION['error'])): ?>
+        <?php if (isset($error)): ?>
             <div class="mb-4 text-red-500 text-center">
-                <?php
-                echo $_SESSION['error'];
-                unset($_SESSION['error']); // Clear error after displaying
-                ?>
+                <?php echo $error; ?>
             </div>
         <?php endif; ?>
 
-        <form id="loginForm" action="../src/controller/login.php" method="POST">
+        <form method="POST" action="">
             <div class="mb-4">
                 <label for="email" class="block text-gray-700">Email</label>
-                <input type="email" id="email" name="email" autocomplete="off" class="input-border w-full px-3 py-2 border rounded-full ">
-                <div id="emailError" class="text-red-500 text-sm"></div>
+                <input type="email" id="email" name="email" autocomplete="off" required
+                    class="input-border w-full px-3 py-2 border rounded-full">
             </div>
             <div class="mb-4">
                 <label for="password" class="block text-gray-700">Password</label>
-                <input type="password" id="password" name="password" class="input-border w-full px-3 py-2 border rounded-full">
-                <div id="passwordError" class="text-red-500 text-sm"></div>
+                <input type="password" id="password" name="password" required
+                    class="input-border w-full px-3 py-2 border rounded-full">
             </div>
             <button type="submit" class="mt-12 button-color w-full border-2 py-2 px-4 rounded-full block text-center">Login</button>
         </form>
-
-        <div class="mt-4 text-center">
-            <a href="register.php" class="text-indigo-500 hover:underline">Don't have an account? Register here</a>
-        </div>
     </div>
-
-    <script src="../public/js/validateLogin.js"></script>
 </body>
 
 </html>
