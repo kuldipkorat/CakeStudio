@@ -9,7 +9,7 @@ session_start();
 // Check if the user is logged in
 if (isset($_SESSION['user_id'])) {
     // If logged in, redirect to the dashboard
-    header('Location: ../src/controller/login.php');
+    header('login.php');
     exit();
 }
 ?>
