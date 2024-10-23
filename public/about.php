@@ -30,7 +30,7 @@
                 Cake Studio is your go-to place for delicious cakes, brownies, pastries, and more. We take pride in offering high-quality, freshly baked goods that satisfy all taste buds. Our team of expert bakers brings their passion for baking to life with every treat.
             </p>
             <p class="text-lg text-gray-700 mb-4">
-                Founded in 2022, Cake Studio has quickly become a favorite spot for cake lovers. We offer custom cake services for all kinds of celebrations, including weddings, birthdays, and corporate events.
+                Founded in 2024, Cake Studio has quickly become a favorite spot for cake lovers. We offer custom cake services for all kinds of celebrations, including weddings, birthdays, and corporate events.
             </p>
             <p class="text-lg text-gray-700">
                 Thank you for choosing Cake Studio. We’re here to sweeten your day!
