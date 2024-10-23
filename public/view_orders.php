@@ -94,7 +94,7 @@ $result = $conn->query($query);
                             if ($currentOrderId !== null): ?>
                                 <tr class="order-total-row">
                                     <td colspan="7" style="text-align:right;">Order Total:</td>
-                                    <td>$<?php echo number_format($totalAmount, 2); ?></td>
+                                    <td>&#8377;<?php echo number_format($totalAmount, 2); ?></td>
                                 </tr>
                             <?php
                             endif;
@@ -124,8 +124,8 @@ $result = $conn->query($query);
                                 <?php echo $row['product_name']; ?>
                             </td>
                             <td><?php echo $row['quantity']; ?></td>
-                            <td>$<?php echo number_format($row['price'], 2); ?></td>
-                            <td>$<?php echo number_format($row['price'] * $row['quantity'], 2); ?></td>
+                            <td>&#8377;<?php echo number_format($row['price'], 2); ?></td>
+                            <td>&#8377;<?php echo number_format($row['price'] * $row['quantity'], 2); ?></td>
                         </tr>
 
                     <?php
@@ -138,7 +138,7 @@ $result = $conn->query($query);
                     <!-- Display total for the last order -->
                     <tr class="order-total-row">
                         <td colspan="7" style="text-align:right;">Order Total:</td>
-                        <td>$<?php echo number_format($totalAmount, 2); ?></td>
+                        <td>&#8377;<?php echo number_format($totalAmount, 2); ?></td>
                     </tr>
                 <?php else: ?>
                     <tr>

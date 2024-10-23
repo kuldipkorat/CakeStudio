@@ -107,7 +107,7 @@ $result = $stmt->get_result();
                             <!-- Closing previous order total row -->
                             <tr>
                                 <td colspan="6" style="text-align:right;"><strong>Order Total:</strong></td>
-                                <td>$<?php echo number_format($totalAmount, 2); ?></td>
+                                <td>&#8377;<?php echo number_format($totalAmount, 2); ?></td>
                             </tr>
                         <?php endif;
 
@@ -130,13 +130,13 @@ $result = $stmt->get_result();
                         <td><img src="images/<?php echo $row['product_image']; ?>" alt="<?php echo $row['product_name']; ?>"></td>
                         <td><?php echo $row['product_name']; ?></td>
                         <td><?php echo $row['quantity']; ?></td>
-                        <td>$<?php echo number_format($row['product_price'], 2); ?></td>
-                        <td>$<?php echo number_format($row['product_price'] * $row['quantity'], 2); ?></td> <!-- Product total -->
+                        <td>&#8377;<?php echo number_format($row['product_price'], 2); ?></td>
+                        <td>&#8377;<?php echo number_format($row['product_price'] * $row['quantity'], 2); ?></td> <!-- Product total -->
                     </tr>
 
                 <?php
                     // Calculate the total amount for the order
-                    $totalAmount += $row['product_price'] * $row['quantity'];
+                    $totalAmount +=  $row['product_price'] * $row['quantity'];
                 // Add to grand total
                 // $grandTotal += $row['product_price'] * $row['quantity'];
                 endwhile;
@@ -144,12 +144,12 @@ $result = $stmt->get_result();
                 <!-- Display total for the last order -->
                 <tr>
                     <td colspan="6" style="text-align:right;"><strong>Order Total:</strong></td>
-                    <td>$<?php echo number_format($totalAmount, 2); ?></td>
+                    <td>&#8377;<?php echo number_format($totalAmount, 2); ?></td>
                 </tr>
                 <!-- Grand Total Row -->
                 <!-- <tr>
                     <td colspan="6" style="text-align:right;"><strong>Grand Total:</strong></td>
-                    <td><strong>$<?php echo number_format($grandTotal, 2); ?></strong></td>
+                    <td><strong>&#8377;<?php echo number_format($grandTotal, 2); ?></strong></td>
                 </tr> -->
             <?php else: ?>
                 <tr>

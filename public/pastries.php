@@ -65,7 +65,7 @@ if ($result->num_rows > 0) {
                             <img src="../public/images/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="rounded mb-4 w-full h-56 object-cover" />
                             <h3 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($product['name']); ?></h3>
                             <p class="text-gray-700 mb-2 h-12"><?php echo htmlspecialchars($product['description']); ?></p>
-                            <p class="text-black font-bold mb-4 text-xl">$<?php echo number_format($product['price'], 2); ?></p>
+                            <p class="text-black font-bold mb-4 text-xl">&#8377;<?php echo number_format($product['price'], 2); ?></p>
                             <a href="productDetail.php?id=<?php echo $product['id']; ?>" class="button-color border-2 py-2 px-4 rounded-full block text-center">Buy Now</a>
                         </a>
                     </div>

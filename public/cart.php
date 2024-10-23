@@ -100,7 +100,7 @@ while ($row = $result->fetch_assoc()) {
 
                                 </div>
                             </td>
-                            <td class="py-2 px-4">$<?php echo number_format($item['price'], 2); ?></td>
+                            <td class="py-2 px-4">&#8377;<?php echo number_format($item['price'], 2); ?></td>
                             <td class="py-2 px-4">
                                 <button onclick="updateCart(<?php echo $item['product_id']; ?>, -1)" class="bg-gray-200 px-2 py-1 rounded hover:bg-gray-300">-</button>
                                 <span class="mx-2"><?php echo $item['quantity']; ?></span>
@@ -118,7 +118,7 @@ while ($row = $result->fetch_assoc()) {
             <div class="flex justify-end mb-6">
                 <div>
                     <h3 class="text-2xl font-bold">Order Summary</h3>
-                    <p class="mt-2">Total Amount: <span class="font-semibold">$<?php echo number_format($totalAmount, 2); ?></span></p>
+                    <p class="mt-2">Total Amount: <span class="font-semibold">&#8377;<?php echo number_format($totalAmount, 2); ?></span></p>
                 </div>
             </div>
 
