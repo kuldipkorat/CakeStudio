@@ -155,7 +155,7 @@ if ($productId > 0) {
                     <form action="../src/controller/add_to_cart.php" method="POST">
                         <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product['id']); ?>">
 
-                        <?php if (strtolower($product['category']) === 'cake'): ?>
+                        <!-- <?php if (strtolower($product['category']) === 'cake'): ?>
                             <div class="custom-dropdown mb-4">
                                 <label for="weight" class="block text-lg font-medium text-gray-700 mb-2">Select Weight</label>
                                 <select id="weight" name="weight" class="block shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required>
@@ -166,7 +166,7 @@ if ($productId > 0) {
                                     <option value="3kg">3 kg</option>
                                 </select>
                             </div>
-                        <?php endif; ?>
+                        <?php endif; ?> -->
                         
                         <input type="hidden" name="quantity" value="1"> <!-- Default quantity -->
                         <button type="submit" class="button-color border text-white py-2 px-4 rounded-full">Add to Cart</button>
