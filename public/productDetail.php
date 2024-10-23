@@ -143,6 +143,10 @@ if ($productId > 0) {
                     <div class="key-points mb-6">
                         <h3 class="text-lg font-semibold mb-3">Key Features:</h3>
                         <ul class="text-gray-700">
+                            <?php if (strtolower($product['category']) === 'cake'): ?>
+                                <li>weight: 1 kg</li>
+
+                        <?php endif; ?>
                             <li>Made with 100% organic ingredients</li>
                             <li>Eggless and 100% vegetarian</li>
                             <li>Freshly baked daily</li>
@@ -167,7 +171,7 @@ if ($productId > 0) {
                                 </select>
                             </div>
                         <?php endif; ?> -->
-                        
+
                         <input type="hidden" name="quantity" value="1"> <!-- Default quantity -->
                         <button type="submit" class="button-color border text-white py-2 px-4 rounded-full">Add to Cart</button>
                     </form>
