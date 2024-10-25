@@ -106,7 +106,7 @@ while ($row = $result->fetch_assoc()) {
                                 <span class="mx-2"><?php echo $item['quantity']; ?></span>
                                 <button onclick="updateCart(<?php echo $item['product_id']; ?>, 1)" class="bg-gray-200 px-2 py-1 rounded hover:bg-gray-300">+</button>
                             </td>
-                            <td class="py-2 px-4">$<?php echo number_format($totalPrice, 2); ?></td>
+                            <td class="py-2 px-4">&#8377;<?php echo number_format($totalPrice, 2); ?></td>
                             <td class="py-2 px-4">
                                 <button onclick="removeFromCart(<?php echo $item['product_id']; ?>)" class="text-red-600 hover:underline">Remove</button>
                             </td>

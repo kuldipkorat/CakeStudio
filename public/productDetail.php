@@ -137,7 +137,7 @@ if ($productId > 0) {
                     <p class="text-gray-700 mb-4"><?php echo htmlspecialchars($product['description']); ?></p>
 
                     <!-- Product Price -->
-                    <p class="text-black text-2xl font-bold mb-6">$<?php echo number_format($product['price'], 2); ?></p>
+                    <p class="text-black text-2xl font-bold mb-6">&#8377;<?php echo number_format($product['price'], 2); ?></p>
 
                     <!-- Key Points Section -->
                     <div class="key-points mb-6">
